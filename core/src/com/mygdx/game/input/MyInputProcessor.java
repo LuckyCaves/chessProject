@@ -1,6 +1,7 @@
 package com.mygdx.game.input;
 
 import com.badlogic.gdx.InputProcessor;
+import com.mygdx.game.objects.Tablero;
 
 public class MyInputProcessor implements InputProcessor
 {
@@ -23,8 +24,7 @@ public class MyInputProcessor implements InputProcessor
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        System.out.println("Hiciste click en " + screenX + " " + screenY);
-
+        System.out.println(Tablero.translateCoordsX(screenX) + " " + Tablero.translateCoordsY(screenY));
         return false;
     }
 
@@ -40,7 +40,7 @@ public class MyInputProcessor implements InputProcessor
 
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
-        System.out.println("Estás arrastrando el mouse");
+        System.out.println(Tablero.translateCoordsX(screenX) + " " + Tablero.translateCoordsY(screenY));
         return false;
     }
 

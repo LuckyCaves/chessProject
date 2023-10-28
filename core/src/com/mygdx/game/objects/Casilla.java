@@ -1,28 +1,24 @@
 package com.mygdx.game.objects;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.mygdx.game.input.MyInputProcessor;
 
 public class Casilla extends Actor
 {
     private Color color;
     private int xBoard;
     private int yBoard;
+    protected int x;
+    protected int y;
     private static int size = 50;
-    private static MyInputProcessor inputProcessor;
 
-    static
-    {
-        inputProcessor = new MyInputProcessor();
-        Gdx.input.setInputProcessor(inputProcessor);
-    }
     public Casilla() {
         setColor(false);
         setxBoard(1);
         setyBoard(1);
+        this.x = xBoard + (size * xBoard);
+        this.y = yBoard + (size * yBoard);
 
     }
 
@@ -31,6 +27,10 @@ public class Casilla extends Actor
         setColor(color);
         setxBoard(x);
         setyBoard(y);
+        this.x = xBoard + (size * xBoard);
+        this.y = yBoard + (size * yBoard);
+        System.out.println(this.x + " " + this.y);
+
     }
 
     public void setColor(boolean color)
@@ -81,6 +81,6 @@ public class Casilla extends Actor
 
     public void draw(ShapeRenderer shape)
     {
-        shape.rect(xBoard + (size * xBoard), yBoard + (size * yBoard), size, size, color, color, color, color);
+        shape.rect(x, y, size, size, color, color, color, color);
     }
 }

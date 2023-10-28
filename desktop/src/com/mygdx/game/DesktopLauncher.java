@@ -1,6 +1,7 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import com.badlogic.gdx.graphics.Color;
@@ -14,7 +15,7 @@ public class DesktopLauncher{
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
 		config.useVsync(true);
 		config.setForegroundFPS(60);
-		config.setInitialBackgroundColor(Color.BLUE);
+//		config.setInitialBackgroundColor(Color.BLUE);
 		config.setTitle("My GDX Game");
 		new Lwjgl3Application(new MyGdxGame(), config);
 	}
