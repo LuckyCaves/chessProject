@@ -1,8 +1,11 @@
 package com.mygdx.game.objects;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.utils.Null;
+import com.mygdx.game.objects.pieces.Pieza;
 
 public class Casilla extends Actor
 {
@@ -12,6 +15,7 @@ public class Casilla extends Actor
     protected int x;
     protected int y;
     private static int size = 50;
+    private Pieza pieza = null;
 
     public Casilla() {
         setColor(false);
@@ -27,18 +31,17 @@ public class Casilla extends Actor
         setColor(color);
         setxBoard(x);
         setyBoard(y);
-        this.x = xBoard + (size * xBoard);
-        this.y = yBoard + (size * yBoard);
-        System.out.println(this.x + " " + this.y);
+        this.x = (size * xBoard);
+        this.y = (size * yBoard);
 
     }
 
     public void setColor(boolean color)
     {
         if(color)
-            this.color = Color.WHITE;
+            this.color = Color.LIGHT_GRAY;
         else
-            this.color = Color.BLACK;
+            this.color = Color.NAVY;
     }
 
     public void setxBoard(int xBoard)
@@ -75,6 +78,28 @@ public class Casilla extends Actor
         return " | " + (char) (this.xBoard + 64) + " " + this.yBoard + " " + colorLetra + " | ";
     }
 
+    public void setPiece(Pieza pieza)
+    {
+        this.pieza = pieza;
+    }
+
+    public void removePiece()
+    {
+        this.pieza = null;
+    }
+
+    public boolean hasPiece()
+    {
+        return this.pieza != null;
+    }
+
+    public Pieza getPiece()
+    {
+        return pieza;
+    }
+
+
+
     public void update()
     {
     }
@@ -82,5 +107,10 @@ public class Casilla extends Actor
     public void draw(ShapeRenderer shape)
     {
         shape.rect(x, y, size, size, color, color, color, color);
+    }
+
+    public boolean move(int xBoard, int yBoard)
+    {
+        return pieza.movePiece(xBoard, yBoard);
     }
 }
