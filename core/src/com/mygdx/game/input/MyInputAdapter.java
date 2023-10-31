@@ -22,15 +22,32 @@ public class MyInputAdapter extends InputAdapter
         if(Vector2d.isInBounds(tablero.getBordes(), screenX, screenY))
         {
             gameProcessor.movePiece(tablero.getTablero()[Tablero.coordsX(screenX)][Tablero.coordsY(screenY)]);
-            System.out.println(Tablero.translateCoordsX(screenX) + " " + Tablero.translateCoordsY(screenY));
+//            System.out.println(Tablero.translateCoordsX(screenX) + " " + Tablero.translateCoordsY(screenY));
         }
+        System.out.println("Tocamos");
+//        tablero.update();
         return false;
     }
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
+        System.out.println("Arrastramos");
 
-        if(Vector2d.isInBounds(tablero.getBordes(), screenX, screenY))
-            System.out.println(Tablero.translateCoordsX(screenX) + " " + Tablero.translateCoordsY(screenY));
+//        if(Vector2d.isInBounds(tablero.getBordes(), screenX, screenY))
+//            gameProcessor.grabPiece(tablero.getTablero()[Tablero.coordsX(screenX)][Tablero.coordsY(screenY)]);
+//
+//        System.out.println(Tablero.translateCoordsX(screenX) + " " + Tablero.translateCoordsY(screenY) + "Arrastrando");
+//        tablero.update();
+        return false;
+    }
+
+    @Override
+    public boolean touchUp(int screenX, int screenY, int pointer, int button)
+    {
+//        if(Vector2d.isInBounds(tablero.getBordes(), screenX, screenY))
+//            gameProcessor.confirmMove(tablero.getTablero()[Tablero.coordsX(screenX)][Tablero.coordsY(screenY)]);
+
+//        System.out.println(Tablero.translateCoordsX(screenX) + " " + Tablero.translateCoordsY(screenY) + "Levantaste click");
+//        tablero.update();
         return false;
     }
 

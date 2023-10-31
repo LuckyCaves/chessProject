@@ -29,7 +29,7 @@ public class Peon extends Pieza
 
         update(boardX * SIZE, (boardY * SIZE));
 
-        System.out.println(boardX * SIZE + " " + ((boardY * SIZE) - 20));
+//        System.out.println("Pieza movida " + boardX * SIZE + " " + ((boardY * SIZE) - 20));
         isSelected = false;
         return true;
 

@@ -74,8 +74,10 @@ public class Casilla extends Actor
     @Override
     public String toString()
     {
-        String colorLetra = this.color == Color.WHITE ? "BLANCO" : "NEGRO";
-        return " | " + (char) (this.xBoard + 64) + " " + this.yBoard + " " + colorLetra + " | ";
+//        String colorLetra = this.color == Color.WHITE ? "BLANCO" : "NEGRO";
+//        return " | " + (char) (this.xBoard + 64) + " " + this.yBoard + " " + colorLetra + " | " ;
+
+        return " | " + (char) (this.xBoard + 64) + " " + this.yBoard + " " + this.hasPiece() + " | ";
     }
 
     public void setPiece(Pieza pieza)
@@ -111,6 +113,18 @@ public class Casilla extends Actor
 
     public boolean move(int xBoard, int yBoard)
     {
+        System.out.println(xBoard + " " + yBoard);
         return pieza.movePiece(xBoard, yBoard);
+    }
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if(!(o instanceof Casilla))
+            return false;
+
+        Casilla c = (Casilla) o;
+
+        return c.getyBoard() == this.yBoard && c.getxBoard() == this.xBoard;
     }
 }

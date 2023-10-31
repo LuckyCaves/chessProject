@@ -49,6 +49,17 @@ public class Tablero
     }
     public void update()
     {
+
+        for(int i = 0; i < 8; i++)
+        {
+            for(int j = 0; j < 8; j++)
+            {
+                System.out.print(tablero[i][j].toString());
+            }
+            System.out.println();
+        }
+        System.out.println("----------------------------------------");
+
     }
 
     public void draw(ShapeRenderer shape)

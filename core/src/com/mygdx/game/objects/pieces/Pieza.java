@@ -25,6 +25,11 @@ public abstract class Pieza extends Actor
         sprite.draw(batch);
     }
 
+    public void setIsSelected(boolean b)
+    {
+        isSelected = b;
+    }
+
     public void select()
     {
         isSelected = true;

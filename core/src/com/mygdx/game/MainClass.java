@@ -23,14 +23,14 @@ public class MainClass extends ApplicationAdapter {
 
 	@Override
 	public void create () {
-//		stage = new Stage(new ScreenViewport());
-//		shape = new ShapeRenderer();
-//		tablero = new Tablero();
-//		peon = new Peon("pawn.png", 50, 400);
-//		tablero.agregarPieza(peon, 0, 0);
-//		stage.addActor(peon);
-//		inputProcessor = new MyInputAdapter(tablero);
-//		Gdx.input.setInputProcessor(inputProcessor);
+		stage = new Stage(new ScreenViewport());
+		shape = new ShapeRenderer();
+		tablero = new Tablero();
+		peon = new Peon("pawn.png", 50, 400);
+		tablero.agregarPieza(peon, 0, 0);
+		stage.addActor(peon);
+		inputProcessor = new MyInputAdapter(tablero);
+		Gdx.input.setInputProcessor(inputProcessor);
 
 
 	}
@@ -39,9 +39,9 @@ public class MainClass extends ApplicationAdapter {
 	public void render () {
 		Gdx.gl.glClearColor(.25f, .25f, .25f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-//		drawShapes();
-//		stage.act(Gdx.graphics.getDeltaTime());
-//		stage.draw();
+		drawShapes();
+		stage.act(Gdx.graphics.getDeltaTime());
+		stage.draw();
 
 	}
 
