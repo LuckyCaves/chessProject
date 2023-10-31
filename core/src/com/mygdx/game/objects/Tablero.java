@@ -1,9 +1,12 @@
 package com.mygdx.game.objects;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.mygdx.game.input.MyInputAdapter;
 import com.mygdx.game.objects.pieces.Pieza;
+import com.mygdx.game.processor.GameProcessor;
 
 
 public class Tablero
@@ -11,9 +14,6 @@ public class Tablero
 
     private final Casilla[][] tablero = new Casilla[8][8];
     private final Vector2d[] bordes = new Vector2d[2];
-    InputAdapter inputProcessor;
-    private boolean isSelected = false;
-    private Casilla casillaSelected;
 
     public Tablero()
     {
@@ -32,37 +32,6 @@ public class Tablero
 
         this.bordes[0] = new Vector2d(this.tablero[0][0].x, this.tablero[0][0].y - 20);
         this.bordes[1] = new Vector2d(this.tablero[7][7].x + 50, this.tablero[7][7].y + 30);
-
-        inputProcessor = new InputAdapter(){
-            @Override
-            public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-                if(Vector2d.isInBounds(bordes, screenX, screenY))
-                {
-                    if(!isSelected)
-                        casillaSelected = (Casilla) tablero[coordsX(screenX)][coordsY(screenY)];
-
-                    if(casillaSelected.hasPiece() || isSelected)
-                    {
-                        if(casillaSelected.move(coordsX(screenX) + 1, coordsY(screenY) + 1))
-                        {
-                            tablero[coordsX(screenX)][coordsY(screenY)].setPiece(casillaSelected.getPiece());
-                            casillaSelected.removePiece();
-                        }
-                        isSelected = !isSelected;
-                        System.out.println(isSelected);
-                    }
-                    System.out.println(Tablero.translateCoordsX(screenX) + " " + Tablero.translateCoordsY(screenY));
-                }
-                return false;
-            }
-            @Override
-            public boolean touchDragged(int screenX, int screenY, int pointer) {
-                if(Vector2d.isInBounds(bordes, screenX, screenY))
-                    System.out.println(Tablero.translateCoordsX(screenX) + " " + Tablero.translateCoordsY(screenY));
-                return false;
-            }
-        };
-        Gdx.input.setInputProcessor(inputProcessor);
     }
 
     public Casilla[][] getTablero() {
@@ -72,6 +41,11 @@ public class Tablero
     public void agregarPieza(Pieza pieza, int boardX, int boardY)
     {
         tablero[boardX][boardY].setPiece(pieza);
+    }
+
+    public Vector2d[] getBordes()
+    {
+        return bordes;
     }
     public void update()
     {
@@ -83,8 +57,6 @@ public class Tablero
             for(int j = 0; j < 8; j++)
                 tablero[i][j].draw(shape);
     }
-
-
 
     public static char translateCoordsX(int x)
     {

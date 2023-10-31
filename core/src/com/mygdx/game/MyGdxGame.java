@@ -2,11 +2,13 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.mygdx.game.input.MyInputAdapter;
 import com.mygdx.game.objects.*;
 import com.mygdx.game.objects.pieces.Peon;
 
@@ -17,6 +19,7 @@ public class MyGdxGame extends ApplicationAdapter {
 	Stage stage;
 	Batch batch;
 	Peon peon;
+	InputAdapter inputProcessor;
 
 	@Override
 	public void create () {
@@ -28,6 +31,9 @@ public class MyGdxGame extends ApplicationAdapter {
 		peon = new Peon("pawn.png", 50, 400);
 		tablero.agregarPieza(peon, 0, 0);
 		stage.addActor(peon);
+
+		inputProcessor = new MyInputAdapter(tablero);
+		Gdx.input.setInputProcessor(inputProcessor);
 	}
 
 	@Override
