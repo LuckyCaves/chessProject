@@ -13,7 +13,7 @@ import com.mygdx.game.objects.*;
 import com.mygdx.game.objects.pieces.Peon;
 
 
-public class MyGdxGame extends ApplicationAdapter {
+public class MainClass extends ApplicationAdapter {
 	ShapeRenderer shape;
 	Tablero tablero;
 	Stage stage;
@@ -23,28 +23,26 @@ public class MyGdxGame extends ApplicationAdapter {
 
 	@Override
 	public void create () {
-		stage = new Stage(new ScreenViewport());
+//		stage = new Stage(new ScreenViewport());
+//		shape = new ShapeRenderer();
+//		tablero = new Tablero();
+//		peon = new Peon("pawn.png", 50, 400);
+//		tablero.agregarPieza(peon, 0, 0);
+//		stage.addActor(peon);
+//		inputProcessor = new MyInputAdapter(tablero);
+//		Gdx.input.setInputProcessor(inputProcessor);
 
-		shape = new ShapeRenderer();
-		tablero = new Tablero();
 
-		peon = new Peon("pawn.png", 50, 400);
-		tablero.agregarPieza(peon, 0, 0);
-		stage.addActor(peon);
-
-		inputProcessor = new MyInputAdapter(tablero);
-		Gdx.input.setInputProcessor(inputProcessor);
 	}
 
 	@Override
 	public void render () {
 		Gdx.gl.glClearColor(.25f, .25f, .25f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		drawShapes();
-		stage.act(Gdx.graphics.getDeltaTime());
-		stage.draw();
+//		drawShapes();
+//		stage.act(Gdx.graphics.getDeltaTime());
+//		stage.draw();
 
-//		drawBatch();
 	}
 
 	public void drawShapes()
