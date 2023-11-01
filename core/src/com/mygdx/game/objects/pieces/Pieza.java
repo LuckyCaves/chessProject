@@ -12,7 +12,6 @@ public abstract class Pieza extends Actor
     protected int boardY;
     protected int x;
     protected int y;
-    protected boolean isSelected;
     protected Sprite sprite;
     protected Color color;
     public final int SIZE = 50;
@@ -23,16 +22,6 @@ public abstract class Pieza extends Actor
     {
         super.draw(batch, parentAlpha);
         sprite.draw(batch);
-    }
-
-    public void setIsSelected(boolean b)
-    {
-        isSelected = b;
-    }
-
-    public void select()
-    {
-        isSelected = true;
     }
 
 

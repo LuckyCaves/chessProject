@@ -26,7 +26,7 @@ public class MainClass extends ApplicationAdapter {
 		stage = new Stage(new ScreenViewport());
 		shape = new ShapeRenderer();
 		tablero = new Tablero();
-		peon = new Peon("pawn.png", 50, 400);
+		peon = new Peon("pawn.png", 50, 400, 1, 1);
 		tablero.agregarPieza(peon, 0, 0);
 		stage.addActor(peon);
 		inputProcessor = new MyInputAdapter(tablero);

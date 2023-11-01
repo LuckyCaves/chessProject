@@ -19,8 +19,8 @@ public class Casilla extends Actor
 
     public Casilla() {
         setColor(false);
-        setxBoard(1);
-        setyBoard(1);
+        setxBoard(0);
+        setyBoard(0);
         this.x = xBoard + (size * xBoard);
         this.y = yBoard + (size * yBoard);
 
@@ -111,12 +111,6 @@ public class Casilla extends Actor
         shape.rect(x, y, size, size, color, color, color, color);
     }
 
-    public boolean move(int xBoard, int yBoard)
-    {
-        System.out.println(xBoard + " " + yBoard);
-        return pieza.movePiece(xBoard, yBoard);
-    }
-
     @Override
     public boolean equals(Object o)
     {
@@ -126,5 +120,10 @@ public class Casilla extends Actor
         Casilla c = (Casilla) o;
 
         return c.getyBoard() == this.yBoard && c.getxBoard() == this.xBoard;
+    }
+
+    private boolean checkNullTile()
+    {
+        return this.xBoard == 0 && this.yBoard == 0;
     }
 }

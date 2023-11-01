@@ -9,58 +9,49 @@ public class GameProcessor
     private boolean isGrabbed = false;
     private Casilla casillaSelected = null;
 
-
-    public void movePiece(Casilla c)
+    public GameProcessor()
     {
-        if(!isSelected)
-            casillaSelected = c;
-        else
+        setCasillaSelected();
+    }
+
+    public boolean movePiece(Casilla c)
+    {
+        if(!isSelected || !isGrabbed)
+            return false;
+
+        if(!casillaSelected.equals(c) && casillaSelected.getPiece().movePiece(c.getxBoard(), c.getyBoard()))
         {
-            if(casillaSelected.equals(c))
-            {
-                casillaSelected.getPiece().setIsSelected(false);
-                casillaSelected = null;
-                isSelected = false;
-                return;
-            }
+            c.setPiece(casillaSelected.getPiece());
+            casillaSelected.removePiece();
         }
+        setCasillaSelected();
+        isSelected = false;
+        isGrabbed = false;
 
+        return true;
+    }
 
-        if(casillaSelected.hasPiece() || isSelected)
+    public void selectPiece(Casilla c)
+    {
+        if(c.hasPiece())
         {
-            if(casillaSelected.move(c.getxBoard(), c.getyBoard()))
-            {
-                c.setPiece(casillaSelected.getPiece());
-                casillaSelected.removePiece();
-            }
-            isSelected = !isSelected;
+            casillaSelected = c;
+            isSelected = true;
         }
     }
 
     public void grabPiece(Casilla c)
     {
-        if(!isGrabbed)
+        if(c.hasPiece())
         {
             casillaSelected = c;
             isGrabbed = true;
         }
-
-
-        if(casillaSelected.hasPiece())
-        {
-            casillaSelected.move(c.getxBoard(), c.getyBoard());
-        }
     }
 
-    public void confirmMove(Casilla c)
+    private void setCasillaSelected()
     {
-        if(casillaSelected.move(c.getxBoard(), c.getyBoard()) && isGrabbed)
-        {
-            c.setPiece(casillaSelected.getPiece());
-            casillaSelected.removePiece();
-            isGrabbed = false;
-        }
-
+        casillaSelected = new Casilla();
     }
 
 }
