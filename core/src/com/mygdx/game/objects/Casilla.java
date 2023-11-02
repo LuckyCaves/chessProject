@@ -100,8 +100,6 @@ public class Casilla extends Actor
         return pieza;
     }
 
-
-
     public void update()
     {
     }
@@ -122,7 +120,7 @@ public class Casilla extends Actor
         return c.getyBoard() == this.yBoard && c.getxBoard() == this.xBoard;
     }
 
-    private boolean checkNullTile()
+    public boolean checkNullTile()
     {
         return this.xBoard == 0 && this.yBoard == 0;
     }

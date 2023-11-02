@@ -17,6 +17,7 @@ public abstract class Pieza extends Actor
     public final int SIZE = 50;
 
     public abstract boolean movePiece(int boardX, int boardY);
+    public abstract boolean isValidMove(int boardX, int boardY);
 
     public void draw(Batch batch, float parentAlpha)
     {

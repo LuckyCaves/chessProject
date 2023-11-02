@@ -34,8 +34,13 @@ public class Tablero
         this.bordes[1] = new Vector2d(this.tablero[7][7].x + 50, this.tablero[7][7].y + 30);
     }
 
-    public Casilla[][] getTablero() {
-        return tablero;
+    public Casilla getCasilla(int x, int y) {
+        return this.tablero[x][y];
+    }
+
+    public Casilla[][] getTablero()
+    {
+        return this.tablero;
     }
 
     public void agregarPieza(Pieza pieza, int boardX, int boardY)

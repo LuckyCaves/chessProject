@@ -3,6 +3,7 @@ package com.mygdx.game;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -26,7 +27,7 @@ public class MainClass extends ApplicationAdapter {
 		stage = new Stage(new ScreenViewport());
 		shape = new ShapeRenderer();
 		tablero = new Tablero();
-		peon = new Peon("pawn.png", 50, 400, 1, 1);
+		peon = new Peon("BlackPawn.png", Color.BLACK, 50, 400, 1, 1);
 		tablero.agregarPieza(peon, 0, 0);
 		stage.addActor(peon);
 		inputProcessor = new MyInputAdapter(tablero);

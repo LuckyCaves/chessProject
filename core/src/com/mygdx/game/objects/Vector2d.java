@@ -25,4 +25,12 @@ public class Vector2d
         return x >= bordes[0].x && x <= bordes[1].x &&
                 y >= bordes[0].y && y <= bordes[1].y;
     }
+
+    public static double distance(int x1, int y1, int x2, int y2)
+    {
+        double sum1 = Math.pow(x2 - x1, 2);
+        double sum2 = Math.pow(y2 - y1, 2);
+
+        return Math.sqrt(sum1 + sum2);
+    }
 }

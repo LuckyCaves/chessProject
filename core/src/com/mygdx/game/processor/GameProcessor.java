@@ -11,12 +11,13 @@ public class GameProcessor
 
     public GameProcessor()
     {
-        setCasillaSelected();
+        cleanCasillaSelected();
     }
 
     public boolean movePiece(Casilla c)
     {
-        if(!isSelected || !isGrabbed)
+
+        if(!isSelected && !isGrabbed)
             return false;
 
         if(!casillaSelected.equals(c) && casillaSelected.getPiece().movePiece(c.getxBoard(), c.getyBoard()))
@@ -24,7 +25,8 @@ public class GameProcessor
             c.setPiece(casillaSelected.getPiece());
             casillaSelected.removePiece();
         }
-        setCasillaSelected();
+
+        cleanCasillaSelected();
         isSelected = false;
         isGrabbed = false;
 
@@ -33,23 +35,34 @@ public class GameProcessor
 
     public void selectPiece(Casilla c)
     {
-        if(c.hasPiece())
-        {
-            casillaSelected = c;
-            isSelected = true;
-        }
+        if(!c.hasPiece())
+            return;
+
+        casillaSelected = c;
+        isSelected = true;
     }
 
     public void grabPiece(Casilla c)
     {
-        if(c.hasPiece())
-        {
-            casillaSelected = c;
-            isGrabbed = true;
-        }
+        if(!c.hasPiece())
+            return;
+
+        casillaSelected = c;
+        isGrabbed = true;
+
     }
 
-    private void setCasillaSelected()
+    public void dropPiece(Casilla c)
+    {
+
+        if(!isGrabbed)
+            return;
+
+        this.movePiece(c);
+
+    }
+
+    private void cleanCasillaSelected()
     {
         casillaSelected = new Casilla();
     }
