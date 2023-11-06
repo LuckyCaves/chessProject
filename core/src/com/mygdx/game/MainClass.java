@@ -11,7 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.game.input.MyInputAdapter;
 import com.mygdx.game.objects.*;
-import com.mygdx.game.objects.pieces.Peon;
+import com.mygdx.game.objects.pieces.*;
 
 
 public class MainClass extends ApplicationAdapter {
@@ -19,7 +19,7 @@ public class MainClass extends ApplicationAdapter {
 	Tablero tablero;
 	Stage stage;
 	Batch batch;
-	Peon peon;
+	Pieza knight;
 	InputAdapter inputProcessor;
 
 	@Override
@@ -27,9 +27,9 @@ public class MainClass extends ApplicationAdapter {
 		stage = new Stage(new ScreenViewport());
 		shape = new ShapeRenderer();
 		tablero = new Tablero();
-		peon = new Peon("BlackPawn.png", Color.BLACK, 50, 400, 1, 1);
-		tablero.agregarPieza(peon, 0, 0);
-		stage.addActor(peon);
+		knight = new King("BlackKing.png", Color.BLACK, 1, 7);
+		tablero.agregarPieza(knight, 0, 6);
+		stage.addActor(knight);
 		inputProcessor = new MyInputAdapter(tablero);
 		Gdx.input.setInputProcessor(inputProcessor);
 

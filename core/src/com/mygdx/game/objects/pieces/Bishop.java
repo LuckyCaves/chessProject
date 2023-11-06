@@ -2,17 +2,14 @@ package com.mygdx.game.objects.pieces;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.scenes.scene2d.Action;
 import com.mygdx.game.objects.Vector2d;
+import com.mygdx.game.objects.pieces.Pieza;
 
-public class Peon extends Pieza
+public class Bishop extends Pieza
 {
 
-    private boolean firstMove = true;
-
-    public Peon(String imagePath, Color color, int boardX, int boardY)
+    public Bishop(String imagePath, Color color, int boardX, int boardY)
     {
         sprite = new Sprite(new Texture(imagePath));
         sprite.setPosition(boardX * 50, (9 - boardY) * 50 );
@@ -23,7 +20,7 @@ public class Peon extends Pieza
         super.boardY = boardY;
     }
 
-    public Peon(Color color, int boardX, int boardY)
+    public Bishop(Color color, int boardX, int boardY)
     {
         super.color = color;
         super.boardX = boardX;
@@ -54,25 +51,17 @@ public class Peon extends Pieza
 
     public boolean isValidMove(int boardX, int boardY)
     {
-        int moveDirection = color == Color.WHITE ? 1 : -1;
-        double distancia = Vector2d.distance(super.boardX, super.boardY, boardX, boardY);
+//        If para considerar si se puede enrocar
+//        if(firstMove)
+//        {
+//            firstMove = false;
+//            return true;
+//        }
 
-        System.out.println("La distancia entre dos puntos es " + distancia);
+        double slope = Math.pow(Vector2d.calculateSlope(boardX, boardY, super.boardX, super.boardY), 2);
 
-        if((boardY * moveDirection) < (super.boardY * moveDirection))
+        if(slope == 1)
         {
-            return false;
-        }
-
-        if(firstMove && distancia == 2)
-        {
-            firstMove = false;
-            return true;
-        }
-
-        if(distancia == 1 && boardX == super.boardX)
-        {
-            firstMove = false;
             return true;
         }
 
@@ -84,4 +73,5 @@ public class Peon extends Pieza
         sprite.setPosition(x, y);
         setBounds(sprite.getX(), sprite.getY(), sprite.getWidth(), sprite.getHeight());
     }
+
 }

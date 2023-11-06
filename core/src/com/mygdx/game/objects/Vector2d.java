@@ -33,4 +33,12 @@ public class Vector2d
 
         return Math.sqrt(sum1 + sum2);
     }
+
+    public static double calculateSlope(int x1, int y1, int x2, int y2)
+    {
+        double sum1 = x2 - x1;
+        double sum2 = y2 - y1;
+
+        return (sum1 / sum2);
+    }
 }

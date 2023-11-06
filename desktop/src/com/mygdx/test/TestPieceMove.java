@@ -20,7 +20,7 @@ public class TestPieceMove
     private static void pawnMovement()
     {
         GameProcessor gameProcessor = new GameProcessor();
-        Pieza peon = new Peon(Color.BLACK, 50, 400, 1, 7);
+        Pieza peon = new Peon(Color.BLACK, 1, 7);
         Tablero tablero = new Tablero();
         tablero.agregarPieza(peon, 0, 6);
 
