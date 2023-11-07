@@ -2,9 +2,8 @@ package com.mygdx.game.objects.pieces;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.scenes.scene2d.Action;
+import com.mygdx.game.objects.Casilla;
 import com.mygdx.game.objects.Vector2d;
 
 public class Peon extends Pieza
@@ -12,54 +11,50 @@ public class Peon extends Pieza
 
     private boolean firstMove = true;
 
-    public Peon(String imagePath, Color color, int boardX, int boardY)
+    public Peon(String imagePath, Color color, Casilla casilla)
     {
         sprite = new Sprite(new Texture(imagePath));
-        sprite.setPosition(boardX * 50, (9 - boardY) * 50 );
+        sprite.setPosition(casilla.getxBoard() * 50, (9 - casilla.getyBoard()) * 50 );
         sprite.setSize(super.SIZE, super.SIZE);
         update(sprite.getX(), sprite.getY());
         super.color = color;
-        super.boardX = boardX;
-        super.boardY = boardY;
+        super.casilla = casilla;
     }
 
-    public Peon(Color color, int boardX, int boardY)
+    public Peon(Color color, Casilla casilla)
     {
         super.color = color;
-        super.boardX = boardX;
-        super.boardY = boardY;
+        super.casilla = casilla;
     }
 
     @Override
-    public boolean movePiece(int boardX, int boardY)
+    public boolean movePiece(Casilla c)
     {
-//      Falta agregar la lógica del movimiento de cada pieza para poder negar, por tanto esta podría estar en Pieza
-        System.out.println("La pieza esta en " + super.boardX + " " + super.boardY);
-        if(!isValidMove(boardX, boardY))
+        System.out.println("La pieza esta en " + casilla.getxBoard() + " " + casilla.getyBoard());
+        if(!isValidMove(c))
         {
             System.out.println("Movimiento ilegal");
             return false;
         }
-        y = 9 - boardY;
-        x = boardX;
-        super.boardX = boardX;
-        super.boardY = boardY;
+        y = 9 - c.getyBoard();
+        x = c.getxBoard();
+        super.casilla = c;
 
 //        TODO descomentar update
-        update(x * SIZE, y * SIZE);
-        System.out.println("La pieza pasa a " + super.boardX + " " + super.boardY);
+//        update(x * SIZE, y * SIZE);
+        System.out.println("La pieza pasa a " + casilla.getxBoard()+ " " + casilla.getyBoard());
         return true;
 
     }
 
-    public boolean isValidMove(int boardX, int boardY)
+    public boolean isValidMove(Casilla c)
     {
         int moveDirection = color == Color.WHITE ? 1 : -1;
-        double distancia = Vector2d.distance(super.boardX, super.boardY, boardX, boardY);
+        double distancia = Vector2d.distance(casilla.getxBoard(), casilla.getyBoard(), c.getxBoard(), c.getyBoard());
 
         System.out.println("La distancia entre dos puntos es " + distancia);
 
-        if((boardY * moveDirection) < (super.boardY * moveDirection))
+        if((c.getyBoard() * moveDirection) < (casilla.getyBoard() * moveDirection))
         {
             return false;
         }
@@ -70,7 +65,7 @@ public class Peon extends Pieza
             return true;
         }
 
-        if(distancia == 1 && boardX == super.boardX)
+        if(distancia == 1 && c.getxBoard() == casilla.getxBoard())
         {
             firstMove = false;
             return true;

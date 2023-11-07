@@ -26,9 +26,9 @@ public class MainClass extends ApplicationAdapter {
 	public void create () {
 		stage = new Stage(new ScreenViewport());
 		shape = new ShapeRenderer();
-		tablero = new Tablero();
-		knight = new King("BlackKing.png", Color.BLACK, 1, 7);
-		tablero.agregarPieza(knight, 0, 6);
+		tablero = Tablero.getInstance();
+		knight = new Queen("BlackQueen.png", Color.BLACK, tablero.getCasilla(1, 7));
+		tablero.agregarPieza(knight, 1, 7);
 		stage.addActor(knight);
 		inputProcessor = new MyInputAdapter(tablero);
 		Gdx.input.setInputProcessor(inputProcessor);

@@ -6,7 +6,7 @@ public class Main {
     public static void main(String[] args)
     {
 
-        Tablero t = new Tablero();
+        Tablero t = Tablero.getInstance();
 //        imprimirTablero(t);
 
     }

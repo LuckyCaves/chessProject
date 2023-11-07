@@ -3,53 +3,49 @@ package com.mygdx.game.objects.pieces;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.mygdx.game.objects.Casilla;
 import com.mygdx.game.objects.Vector2d;
-import com.mygdx.game.objects.pieces.Pieza;
 
 public class Bishop extends Pieza
 {
 
-    public Bishop(String imagePath, Color color, int boardX, int boardY)
+    public Bishop(String imagePath, Color color, Casilla casilla)
     {
         sprite = new Sprite(new Texture(imagePath));
-        sprite.setPosition(boardX * 50, (9 - boardY) * 50 );
+        sprite.setPosition(casilla.getxBoard() * 50, (9 - casilla.getyBoard()) * 50 );
         sprite.setSize(super.SIZE, super.SIZE);
         update(sprite.getX(), sprite.getY());
         super.color = color;
-        super.boardX = boardX;
-        super.boardY = boardY;
+        super.casilla = casilla;
     }
 
-    public Bishop(Color color, int boardX, int boardY)
+    public Bishop(Color color, Casilla casilla)
     {
         super.color = color;
-        super.boardX = boardX;
-        super.boardY = boardY;
+        super.casilla = casilla;
     }
 
     @Override
-    public boolean movePiece(int boardX, int boardY)
+    public boolean movePiece(Casilla c)
     {
-//      Falta agregar la lógica del movimiento de cada pieza para poder negar, por tanto esta podría estar en Pieza
-        System.out.println("La pieza esta en " + super.boardX + " " + super.boardY);
-        if(!isValidMove(boardX, boardY))
+        System.out.println("La pieza esta en " + casilla.getxBoard() + " " + casilla.getyBoard());
+        if(!isValidMove(c))
         {
             System.out.println("Movimiento ilegal");
             return false;
         }
-        y = 9 - boardY;
-        x = boardX;
-        super.boardX = boardX;
-        super.boardY = boardY;
+        y = 9 - c.getyBoard();
+        x = c.getxBoard();
+        super.casilla = c;
 
 //        TODO descomentar update
-        update(x * SIZE, y * SIZE);
-        System.out.println("La pieza pasa a " + super.boardX + " " + super.boardY);
+//        update(x * SIZE, y * SIZE);
+        System.out.println("La pieza pasa a " + casilla.getxBoard()+ " " + casilla.getyBoard());
         return true;
 
     }
 
-    public boolean isValidMove(int boardX, int boardY)
+    public boolean isValidMove(Casilla c)
     {
 //        If para considerar si se puede enrocar
 //        if(firstMove)
@@ -58,7 +54,7 @@ public class Bishop extends Pieza
 //            return true;
 //        }
 
-        double slope = Math.pow(Vector2d.calculateSlope(boardX, boardY, super.boardX, super.boardY), 2);
+        double slope = Math.pow(Vector2d.calculateSlope(c.getxBoard(), c.getyBoard(), casilla.getxBoard(), casilla.getyBoard()), 2);
 
         if(slope == 1)
         {

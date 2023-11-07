@@ -20,7 +20,8 @@ public class GameProcessor
         if(!isSelected && !isGrabbed)
             return false;
 
-        if(!casillaSelected.equals(c) && casillaSelected.getPiece().movePiece(c.getxBoard(), c.getyBoard()))
+        if(!casillaSelected.equals(c)
+                && casillaSelected.getPiece().movePiece(c))
         {
             c.setPiece(casillaSelected.getPiece());
             casillaSelected.removePiece();
