@@ -30,23 +30,14 @@ public class Queen extends Pieza
     @Override
     public boolean movePiece(Casilla c)
     {
-//      Falta agregar la lógica del movimiento de cada pieza para poder negar, por tanto esta podría estar en Pieza
-        System.out.println("La pieza esta en " + casilla.getxBoard() + " " + casilla.getyBoard());
-        Tablero tablero = Tablero.getInstance();
-        if(!isValidMove(c) || !tablero.isPathEmpty(casilla, c))
+        if(super.movePiece(c))
         {
-            System.out.println("Movimiento ilegal");
-            return false;
+            update(x * SIZE, y * SIZE);
+            return true;
         }
-        y = 9 - c.getyBoard();
-        x = c.getxBoard();
-        super.casilla = c;
-
 //        TODO descomentar update
-//        update(x * SIZE, y * SIZE);
-        System.out.println("La pieza pasa a " + casilla.getxBoard()+ " " + casilla.getyBoard());
-        return true;
 
+        return false;
     }
 
     public boolean isValidMove(Casilla c)

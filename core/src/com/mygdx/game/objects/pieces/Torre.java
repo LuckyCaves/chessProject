@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.mygdx.game.objects.Casilla;
+import com.mygdx.game.objects.Tablero;
 
 public class Torre extends Pieza
 {
@@ -30,20 +31,15 @@ public class Torre extends Pieza
     @Override
     public boolean movePiece(Casilla c)
     {
-        System.out.println("La pieza esta en " + casilla.getxBoard() + " " + casilla.getyBoard());
-        if(!isValidMove(c))
-        {
-            System.out.println("Movimiento ilegal");
-            return false;
-        }
-        y = 9 - c.getyBoard();
-        x = c.getxBoard();
-        super.casilla = c;
 
+        if(super.movePiece(c))
+        {
+            update(x * SIZE, y * SIZE);
+            return true;
+        }
 //        TODO descomentar update
-//        update(x * SIZE, y * SIZE);
-        System.out.println("La pieza pasa a " + casilla.getxBoard()+ " " + casilla.getyBoard());
-        return true;
+
+        return false;
 
     }
 

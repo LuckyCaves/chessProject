@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.mygdx.game.objects.Casilla;
+import com.mygdx.game.objects.Tablero;
 import com.mygdx.game.objects.Vector2d;
 
 public class Peon extends Pieza
@@ -30,21 +31,14 @@ public class Peon extends Pieza
     @Override
     public boolean movePiece(Casilla c)
     {
-        System.out.println("La pieza esta en " + casilla.getxBoard() + " " + casilla.getyBoard());
-        if(!isValidMove(c))
+        if(super.movePiece(c))
         {
-            System.out.println("Movimiento ilegal");
-            return false;
+            update(x * SIZE, y * SIZE);
+            return true;
         }
-        y = 9 - c.getyBoard();
-        x = c.getxBoard();
-        super.casilla = c;
-
 //        TODO descomentar update
-//        update(x * SIZE, y * SIZE);
-        System.out.println("La pieza pasa a " + casilla.getxBoard()+ " " + casilla.getyBoard());
-        return true;
 
+        return false;
     }
 
     public boolean isValidMove(Casilla c)

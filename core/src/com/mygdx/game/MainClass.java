@@ -19,7 +19,8 @@ public class MainClass extends ApplicationAdapter {
 	Tablero tablero;
 	Stage stage;
 	Batch batch;
-	Pieza knight;
+	Pieza pieza;
+	Pieza pieza2;
 	InputAdapter inputProcessor;
 
 	@Override
@@ -27,12 +28,14 @@ public class MainClass extends ApplicationAdapter {
 		stage = new Stage(new ScreenViewport());
 		shape = new ShapeRenderer();
 		tablero = Tablero.getInstance();
-		knight = new Queen("BlackQueen.png", Color.BLACK, tablero.getCasilla(1, 7));
-		tablero.agregarPieza(knight, 1, 7);
-		stage.addActor(knight);
+		pieza = new Queen("BlackBishop.png", Color.BLACK, tablero.getCasilla(1, 7));
+		pieza2 = new Peon("BlackPawn.png", Color.BLACK, tablero.getCasilla(2, 6));
+		tablero.agregarPieza(pieza, 1, 7);
+		tablero.agregarPieza(pieza2, 2, 6);
+		stage.addActor(pieza);
+		stage.addActor(pieza2);
 		inputProcessor = new MyInputAdapter(tablero);
 		Gdx.input.setInputProcessor(inputProcessor);
-
 
 	}
 

@@ -113,51 +113,41 @@ public class Tablero
     {
         System.out.println("Revisar Camino");
         double slope = Vector2d.calculateSlope(inicio.getxBoard(), inicio.getyBoard(), destino.getxBoard(), destino.getyBoard());
-        double distancia1 = Vector2d.distance(inicio.getxBoard(), inicio.getyBoard(), 0, 0);
-        double distancia2 = Vector2d.distance(0, 0, destino.getxBoard(), destino.getyBoard());
-        if(inicio.getxBoard() < destino.getxBoard() && inicio.getyBoard() < destino.getyBoard())
+        System.out.println("Pendiente: " + slope);
+        int x = inicio.getxBoard();
+        int y = inicio.getyBoard();
+
+        int diferenciaX = 0;
+        int diferenciaY = 0;
+
+        if(inicio.getyBoard() == destino.getyBoard())
         {
-            for(int i = inicio.getxBoard(); i <= destino.getxBoard() - 1; i++) {
-                for (int j = inicio.getyBoard(); j <= destino.getyBoard() - 1; j++) {
-                    System.out.println("Casilla: " + (i + 1) + " " + (j + 1));
-                    if (tablero[i][j].hasPiece()) {
-                        System.out.println("Hay una pieza en: " + (i + 1) + " " + (j + 1));
-                        return false;
-                    }
-                }
-            }
-        } else if (inicio.getxBoard() < destino.getxBoard() && inicio.getyBoard() > destino.getyBoard()) {
-            for(int i = inicio.getxBoard(); i <= destino.getxBoard() - 1; i++) {
-                for (int j = inicio.getyBoard(); j >= destino.getyBoard() - 1; j--) {
-                    System.out.println("Casilla: " + (i + 1) + " " + (j + 1));
-                    if (tablero[i][j].hasPiece()) {
-                        System.out.println("Hay una pieza en: " + (i + 1) + " " + (j + 1));
-                        return false;
-                    }
-                }
-            }
-        } else if (inicio.getxBoard() > destino.getxBoard() && inicio.getyBoard() < destino.getyBoard()) {
-            for(int i = inicio.getxBoard(); i >= destino.getxBoard() - 1; i--) {
-                for (int j = inicio.getyBoard(); j <= destino.getyBoard() - 1; j++) {
-                    System.out.println("Casilla: " + (i + 1) + " " + (j + 1));
-                    if (tablero[i][j].hasPiece()) {
-                        System.out.println("Hay una pieza en: " + (i + 1) + " " + (j + 1));
-                        return false;
-                    }
-                }
-            }
-        }else
+            diferenciaX = inicio.getxBoard() < destino.getxBoard() ? 1 : -1;
+        }
+        else if(inicio.getxBoard() == destino.getxBoard())
         {
-            for(int i = inicio.getxBoard(); i >= destino.getxBoard()- 1; i--) {
-                for (int j = inicio.getyBoard(); j >= destino.getyBoard() - 1; j--) {
-                    System.out.println("Casilla: " + (i + 1) + " " + (j + 1));
-                    if (tablero[i][j].hasPiece()) {
-                        System.out.println("Hay una pieza en: " + (i + 1) + " " + (j + 1));
-                        return false;
-                    }
-                }
+            diferenciaY = inicio.getyBoard() < destino.getyBoard() ? 1 : -1;
+        }
+        else if(slope == 1 || slope == -1)
+        {
+            diferenciaX = inicio.getxBoard() < destino.getxBoard() ? 1 : -1;
+            diferenciaY = inicio.getyBoard() > destino.getyBoard() ? -1 : 1;
+//            diferenciaY = (int) slope;
+        }
+
+
+        while(x != destino.getxBoard() - diferenciaX|| y != destino.getyBoard() - diferenciaY)
+        {
+            x += diferenciaX;
+            y += diferenciaY;
+            System.out.println("Casilla " + (x) + " " + (y));
+            if(tablero[x - 1][y - 1].hasPiece())
+            {
+                System.out.println("Hay una pieza en " + (x) + " " + (y));
+                return false;
             }
         }
+
         return true;
     }
 }
