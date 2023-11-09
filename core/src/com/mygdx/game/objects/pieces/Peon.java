@@ -3,8 +3,8 @@ package com.mygdx.game.objects.pieces;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.mygdx.game.objects.Casilla;
-import com.mygdx.game.objects.Tablero;
 import com.mygdx.game.objects.Vector2d;
 
 public class Peon extends Pieza
@@ -12,14 +12,19 @@ public class Peon extends Pieza
 
     private boolean firstMove = true;
 
-    public Peon(String imagePath, Color color, Casilla casilla)
+    public Peon(Color color, Casilla casilla, Stage stage)
     {
+        String imagePath = color == Color.WHITE ? "WhitePawn.png" : "BlackPawn.png";
+
         sprite = new Sprite(new Texture(imagePath));
         sprite.setPosition(casilla.getxBoard() * 50, (9 - casilla.getyBoard()) * 50 );
         sprite.setSize(super.SIZE, super.SIZE);
+
         update(sprite.getX(), sprite.getY());
         super.color = color;
         super.casilla = casilla;
+
+        stage.addActor(this);
     }
 
     public Peon(Color color, Casilla casilla)

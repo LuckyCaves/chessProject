@@ -3,8 +3,8 @@ package com.mygdx.game.objects.pieces;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.mygdx.game.objects.Casilla;
-import com.mygdx.game.objects.Tablero;
 
 public class Torre extends Pieza
 {
@@ -12,11 +12,16 @@ public class Torre extends Pieza
 
     private boolean firstMove = true;
 
-    public Torre(String imagePath, Color color, Casilla casilla)
+    public Torre(Color color, Casilla casilla, Stage stage)
     {
+        String imagePath = color == Color.WHITE ? "WhiteRook.png" : "BlackRook.png";
+
         sprite = new Sprite(new Texture(imagePath));
         sprite.setPosition(casilla.getxBoard() * 50, (9 - casilla.getyBoard()) * 50 );
         sprite.setSize(super.SIZE, super.SIZE);
+
+        stage.addActor(this);
+
         update(sprite.getX(), sprite.getY());
         super.color = color;
         super.casilla = casilla;

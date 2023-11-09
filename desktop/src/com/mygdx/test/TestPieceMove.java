@@ -2,6 +2,7 @@ package com.mygdx.test;
 
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.mygdx.game.objects.Tablero;
 import com.mygdx.game.objects.pieces.Peon;
 import com.mygdx.game.objects.pieces.Pieza;
@@ -47,10 +48,10 @@ public class TestPieceMove
         GameProcessor gameProcessor = new GameProcessor();
         Tablero tablero = Tablero.getInstance();
         Pieza pieza = new Queen(Color.BLACK, tablero.getCasilla(1, 7));
-        Pieza pieza2 = new Peon(Color.BLACK, tablero.getCasilla(2, 6));
+//        Pieza pieza2 = new Peon(Color.BLACK, tablero.getCasilla(2, 6));
         tablero.agregarPieza(pieza, 1, 7);
-        tablero.agregarPieza(pieza2, 2, 6);
-
+//        tablero.agregarPieza(pieza2, 2, 6);
+//        tablero.setPieces(Color.BLACK, stage);
         gameProcessor.selectPiece(tablero.getCasilla(1, 7));
         gameProcessor.movePiece(tablero.getCasilla(4, 4));
 
