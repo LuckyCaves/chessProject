@@ -1,6 +1,8 @@
 package com.mygdx.game.processor;
 
+import com.badlogic.gdx.graphics.Color;
 import com.mygdx.game.objects.Casilla;
+import com.mygdx.game.objects.Tablero;
 
 public class GameProcessor
 {
@@ -8,6 +10,8 @@ public class GameProcessor
     private boolean isSelected = false;
     private boolean isGrabbed = false;
     private Casilla casillaSelected = null;
+
+    private final Tablero tablero = Tablero.getInstance();;
 
     public GameProcessor()
     {
@@ -27,11 +31,13 @@ public class GameProcessor
             c.removePiece();
 
         c.setPiece(casillaSelected.getPiece());
+        casillaSelected.unSelectTile();
         casillaSelected.removePiece();
 
         cleanCasillaSelected();
         isSelected = false;
         isGrabbed = false;
+
 
         return true;
     }
@@ -41,13 +47,14 @@ public class GameProcessor
         if(!c.hasPiece())
             return;
 
+        c.selectTile(Color.CLEAR);
         casillaSelected = c;
         isSelected = true;
     }
 
     public void grabPiece(Casilla c)
     {
-        if(!c.hasPiece())
+        if(!c.hasPiece() || isGrabbed)
             return;
 
         casillaSelected = c;

@@ -10,6 +10,7 @@ import com.mygdx.game.objects.pieces.Pieza;
 public class Casilla extends Actor
 {
     private Color color;
+    private Color color2;
     private int xBoard;
     private int yBoard;
     protected int x;
@@ -33,6 +34,7 @@ public class Casilla extends Actor
         setyBoard(y);
         this.x = (size * xBoard);
         this.y = (size * yBoard);
+        color2 = this.color;
 
     }
 
@@ -41,7 +43,7 @@ public class Casilla extends Actor
         if(color)
             this.color = Color.LIGHT_GRAY;
         else
-            this.color = Color.NAVY;
+            this.color = Color.BROWN;
     }
 
     public void setxBoard(int xBoard)
@@ -100,13 +102,19 @@ public class Casilla extends Actor
         return pieza;
     }
 
-    public void update()
+    public void selectTile(Color color2)
     {
+        this.color2 = color2;
+    }
+
+    public void unSelectTile()
+    {
+        this.color2 = this.color;
     }
 
     public void draw(ShapeRenderer shape)
     {
-        shape.rect(x, y, size, size, color, color, color, color);
+        shape.rect(x, y, size, size, color2, color, color, color);
     }
 
     @Override
