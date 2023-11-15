@@ -21,8 +21,8 @@ public class Casilla extends Actor
         setColor(false);
         setxBoard(0);
         setyBoard(0);
-        this.x = xBoard + (size * xBoard);
-        this.y = yBoard + (size * yBoard);
+        this.x = (9 - xBoard) + (size * xBoard);
+        this.y = (9 - yBoard) + (size * yBoard);
 
     }
 
