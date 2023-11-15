@@ -32,8 +32,8 @@ public class Casilla extends Actor
         setColor(color);
         setxBoard(x);
         setyBoard(y);
-        this.x = (size * xBoard);
-        this.y = (size * yBoard);
+        this.x = (size * (xBoard));
+        this.y = (size * (yBoard));
         color2 = this.color;
 
     }
@@ -114,7 +114,10 @@ public class Casilla extends Actor
 
     public void draw(ShapeRenderer shape)
     {
-        shape.rect(x, y, size, size, color2, color, color, color);
+
+        int a = (size * (9 - xBoard));
+        int b = (size * (9 - yBoard));
+        shape.rect(x, b, size, size, color2, color, color, color);
     }
 
     @Override
