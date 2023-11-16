@@ -25,10 +25,15 @@ public class GameProcessor
             return false;
 
         if(casillaSelected.equals(c) || !casillaSelected.getPiece().movePiece(c))
+        {
+            isGrabbed = false;
+            isSelected = false;
+            casillaSelected.unSelectTile();
             return false;
+        }
 
         if(c.hasPiece())
-            c.removePiece();
+            c.deletePiece();
 
         c.setPiece(casillaSelected.getPiece());
         casillaSelected.unSelectTile();
@@ -37,7 +42,6 @@ public class GameProcessor
         cleanCasillaSelected();
         isSelected = false;
         isGrabbed = false;
-
 
         return true;
     }

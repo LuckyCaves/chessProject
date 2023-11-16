@@ -148,6 +148,7 @@ public class Tablero
 
     public boolean isPathEmpty(Casilla inicio, Casilla destino)
     {
+
         System.out.println("Revisar Camino");
         double slope = Vector2d.calculateSlope(inicio.getxBoard(), inicio.getyBoard(), destino.getxBoard(), destino.getyBoard());
         System.out.println("Pendiente: " + slope);
@@ -156,6 +157,13 @@ public class Tablero
 
         if(inicio.getPiece() instanceof Knight)
             return true;
+
+
+        if(destino.hasPiece() && destino.getPiece().getColor().equals(inicio.getPiece().getColor()))
+        {
+            System.out.println(destino.getPiece().getColor());
+            return false;
+        }
 
         int diferenciaX = 0;
         int diferenciaY = 0;
@@ -172,7 +180,6 @@ public class Tablero
         {
             diferenciaX = inicio.getxBoard() < destino.getxBoard() ? 1 : -1;
             diferenciaY = inicio.getyBoard() > destino.getyBoard() ? -1 : 1;
-//            diferenciaY = (int) slope;
         }
 
 

@@ -92,6 +92,12 @@ public class Casilla extends Actor
         this.pieza = null;
     }
 
+    public void deletePiece()
+    {
+        this.pieza.deletePiece();
+        this.pieza = null;
+    }
+
     public boolean hasPiece()
     {
         return this.pieza != null;

@@ -38,10 +38,23 @@ public abstract class Pieza extends Actor
     }
     public abstract boolean isValidMove(Casilla c);
 
+    public void deletePiece()
+    {
+        sprite = null;
+        this.remove();
+        casilla = null;
+        tablero = null;
+    }
+
     public void draw(Batch batch, float parentAlpha)
     {
         super.draw(batch, parentAlpha);
         sprite.draw(batch);
+    }
+
+    public Color getColor()
+    {
+        return this.color;
     }
 
 

@@ -30,7 +30,6 @@ public class Queen extends Pieza
     {
         super.color = color;
         super.casilla = casilla;
-
     }
 
     @Override
