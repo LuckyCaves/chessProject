@@ -15,7 +15,7 @@ public class Bishop extends Pieza
         String imagePath = color == Color.WHITE ? "WhiteBishop.png" : "BlackBishop.png";
 
         sprite = new Sprite(new Texture(imagePath));
-        sprite.setPosition(casilla.getxBoard() * 50, (9 - casilla.getyBoard()) * 50 );
+        sprite.setPosition(casilla.getxBoard() * 50, (casilla.getyBoard()) * 50 );
         sprite.setSize(super.SIZE, super.SIZE);
 
         stage.addActor(this);

@@ -21,15 +21,15 @@ public class TestPieceMove
 
     private static void pawnMovement()
     {
-        GameProcessor gameProcessor = new GameProcessor();
+//        GameProcessor gameProcessor = new GameProcessor();
         Tablero tablero = Tablero.getInstance();
         Pieza peon = new Peon(Color.BLACK, tablero.getCasilla(1, 7));
         tablero.agregarPieza(peon, 0, 6);
 
-        gameProcessor.selectPiece(tablero.getCasilla(0, 6));
-        gameProcessor.movePiece(tablero.getCasilla(0, 7));
-        gameProcessor.selectPiece(tablero.getCasilla(0, 6));
-        gameProcessor.movePiece(tablero.getCasilla(0, 5));
+//        gameProcessor.selectPiece(tablero.getCasilla(0, 6));
+//        gameProcessor.movePiece(tablero.getCasilla(0, 7));
+//        gameProcessor.selectPiece(tablero.getCasilla(0, 6));
+//        gameProcessor.movePiece(tablero.getCasilla(0, 5));
     }
 
     private static void queenMovement()

@@ -120,10 +120,7 @@ public class Casilla extends Actor
 
     public void draw(ShapeRenderer shape)
     {
-
-        int a = (size * (9 - xBoard));
-        int b = (size * (9 - yBoard));
-        shape.rect(x, b, size, size, color2, color, color, color);
+        shape.rect(x, y, size, size, color2, color, color, color);
     }
 
     @Override

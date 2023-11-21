@@ -17,7 +17,7 @@ public class Torre extends Pieza
         String imagePath = color == Color.WHITE ? "WhiteRook.png" : "BlackRook.png";
 
         sprite = new Sprite(new Texture(imagePath));
-        sprite.setPosition(casilla.getxBoard() * 50, (9 - casilla.getyBoard()) * 50 );
+        sprite.setPosition(casilla.getxBoard() * 50, (casilla.getyBoard()) * 50 );
         sprite.setSize(super.SIZE, super.SIZE);
 
         stage.addActor(this);
@@ -50,13 +50,6 @@ public class Torre extends Pieza
 
     public boolean isValidMove(Casilla c)
     {
-//        If para considerar si se puede enrocar
-//        if(firstMove)
-//        {
-//            firstMove = false;
-//            return true;
-//        }
-
         if(c.getxBoard() == casilla.getxBoard() || c.getyBoard() == casilla.getyBoard())
         {
             firstMove = false;
@@ -64,6 +57,11 @@ public class Torre extends Pieza
         }
 
         return false;
+    }
+
+    public boolean isFirstMove()
+    {
+        return firstMove;
     }
 
     public void update(float x, float y)

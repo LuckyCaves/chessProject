@@ -16,7 +16,7 @@ public class Queen extends Pieza
         String imagePath = color == Color.WHITE ? "WhiteQueen.png" : "BlackQueen.png";
 
         sprite = new Sprite(new Texture(imagePath));
-        sprite.setPosition(casilla.getxBoard() * 50, (9 - casilla.getyBoard()) * 50 );
+        sprite.setPosition(casilla.getxBoard() * 50, (casilla.getyBoard()) * 50 );
         sprite.setSize(super.SIZE, super.SIZE);
 
         stage.addActor(this);
@@ -49,7 +49,6 @@ public class Queen extends Pieza
     {
 
         double slope = Math.pow(Vector2d.calculateSlope(c.getxBoard(), c.getyBoard(), casilla.getxBoard(), casilla.getyBoard()), 2);
-
 
         if(c.getxBoard() == casilla.getxBoard() || c.getyBoard() == casilla.getyBoard())
         {

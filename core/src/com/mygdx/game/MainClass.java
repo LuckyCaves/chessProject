@@ -22,6 +22,9 @@ public class MainClass extends ApplicationAdapter {
 	Pieza pieza;
 	Pieza pieza2;
 	InputAdapter inputProcessor;
+	Player jugadorBlanco;
+	Player jugadorNegro;
+	Player jugadorActual;
 
 	@Override
 	public void create () {
@@ -32,6 +35,7 @@ public class MainClass extends ApplicationAdapter {
 		tablero.setPieces(Color.WHITE, stage);
 		inputProcessor = new MyInputAdapter(tablero);
 		Gdx.input.setInputProcessor(inputProcessor);
+
 
 	}
 

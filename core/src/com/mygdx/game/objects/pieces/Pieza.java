@@ -18,18 +18,23 @@ public abstract class Pieza extends Actor
     public final int SIZE = 50;
     protected static Tablero tablero;
 
+    public Pieza()
+    {
+        tablero = Tablero.getInstance();
+        System.out.println("ejecutado");
+    }
+
     public boolean movePiece(Casilla c)
     {
         System.out.println("La pieza esta en " + casilla.getxBoard() + " " + casilla.getyBoard());
 
-        Tablero tablero = Tablero.getInstance();
         if(!isValidMove(c) || !tablero.isPathEmpty(casilla, c))
         {
             System.out.println("Movimiento ilegal");
             return false;
         }
 
-        y = 9 - c.getyBoard();
+        y = c.getyBoard();
         x = c.getxBoard();
         casilla = c;
         System.out.println("La pieza pasa a " + casilla.getxBoard()+ " " + casilla.getyBoard());
