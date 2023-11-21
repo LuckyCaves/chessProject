@@ -20,6 +20,9 @@ public class MainClass extends ApplicationAdapter {
 	Stage stage;
 	Batch batch;
 	InputAdapter inputProcessor;
+	Player jugadorBlanco;
+	Player jugadorNegro;
+	Player jugadorActual;
 
 	@Override
 	public void create () {

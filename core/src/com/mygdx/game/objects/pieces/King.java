@@ -172,12 +172,6 @@ public class King extends Pieza
 
         return false;
     }
-
-//    public boolean lineCheck(int x, int y, int difx)
-//    {
-//
-//    }
-
     public boolean diagonalCheck(int x, int y, int difx, int dify)
     {
         Casilla inicio = tablero.getCasilla(x, y);
