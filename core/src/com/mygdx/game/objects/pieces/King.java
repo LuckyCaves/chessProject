@@ -10,12 +10,15 @@ import com.mygdx.game.objects.Vector2d;
 public class King extends Pieza
 {
 
+    private boolean firstMove = true;
+
     public King(Color color, Casilla casilla, Stage stage)
     {
+//        super();
         String imagePath = color == Color.WHITE ? "WhiteKing.png" : "BlackKing.png";
 
         sprite = new Sprite(new Texture(imagePath));
-        sprite.setPosition(casilla.getxBoard() * 50, (9 - casilla.getyBoard()) * 50 );
+        sprite.setPosition(casilla.getxBoard() * 50, (casilla.getyBoard()) * 50 );
         sprite.setSize(super.SIZE, super.SIZE);
 
         stage.addActor(this);
@@ -32,9 +35,9 @@ public class King extends Pieza
     }
 
     @Override
-    public boolean movePiece(Casilla c)
+    public boolean movePiece(Casilla c, boolean notCheck)
     {
-        if(super.movePiece(c))
+        if(super.movePiece(c, notCheck))
         {
             update(x * SIZE, y * SIZE);
             return true;
@@ -51,18 +54,175 @@ public class King extends Pieza
         double distanciaX = Vector2d.distance(casilla.getxBoard(), casilla.getyBoard(), c.getxBoard(), casilla.getyBoard());
         double distanciaY = Vector2d.distance(casilla.getxBoard(), casilla.getyBoard(), casilla.getxBoard(), c.getyBoard());
 
+        if(firstMove && ((distanciaX == 2 && distanciaY == 0) || (c.hasPiece() && c.getPiece() instanceof Torre)))
+        {
+            castle(c, (int) distanciaX);
+            firstMove = false;
+            return true;
+        }
 
         if(distanciaX == 0 && distanciaY == 1)
         {
+            firstMove = false;
             return true;
         }
         else if(distanciaY == 0 && distanciaX == 1)
         {
+            firstMove = false;
             return true;
         }
         else if(distanciaX == 1 && distanciaY == 1)
         {
+            firstMove = false;
             return true;
+        }
+
+        return false;
+    }
+
+    public boolean castle(Casilla c, int distanciaX)
+    {
+
+        Pieza p = null;
+        Casilla c1 = null;
+
+        if(distanciaX == 2)
+        {
+            if(this.getCasilla().getxBoard() < c.getxBoard())
+            {
+                p = tablero.getCasilla(8, this.getCasilla().getyBoard()).getPiece();
+            }
+            else
+            {
+                p = tablero.getCasilla(1, this.getCasilla().getyBoard()).getPiece();
+            }
+        }
+        else if(c.getPiece() instanceof Torre)
+        {
+            p = c.getPiece();
+
+        }
+
+        if(p == null)
+            return false;
+
+        Casilla cPieza = p.getCasilla();
+
+        if(p.getCasilla().getxBoard() > this.getCasilla().getxBoard())
+        {
+            c1 = tablero.getCasilla(p.getCasilla().getxBoard() - 2, p.getCasilla().getyBoard());
+        }
+        else if(p.getCasilla().getxBoard() < this.getCasilla().getxBoard())
+        {
+            c1 = tablero.getCasilla(p.getCasilla().getxBoard() + 2, p.getCasilla().getyBoard());
+        }
+
+        if(c1 == null)
+            return false;
+
+        p.movePiece(c1, true);
+        c1.setPiece(p);
+        c.removePiece();
+
+        return true;
+    }
+
+    public boolean isChecked()
+    {
+
+        System.out.println("Revisamos");
+
+        int x = casilla.getxBoard();
+        int y = casilla.getyBoard();
+
+        if(diagonalCheck(x ,y, 1, 1))
+            return true;
+        if(diagonalCheck(x ,y, -1, 1))
+            return true;
+        if(diagonalCheck(x ,y, -1, -1))
+            return true;
+        if(diagonalCheck(x ,y, 1, -1))
+            return true;
+
+        if(diagonalCheck(x ,y, 1, 0))
+            return true;
+        if(diagonalCheck(x ,y, -1, 0))
+            return true;
+        if(diagonalCheck(x ,y, 0, 1))
+            return true;
+        if(diagonalCheck(x ,y, 0, -1))
+            return true;
+
+        if(knightCheck(x + 2, y - 1))
+            return true;
+        if(knightCheck(x + 2, y + 1))
+            return true;
+        if(knightCheck(x - 2, y - 1))
+            return true;
+        if(knightCheck(x - 2, y + 1))
+            return true;
+        if(knightCheck(x + 1, y + 2))
+            return true;
+        if(knightCheck(x - 1, y + 2))
+            return true;
+        if(knightCheck(x + 1, y - 2))
+            return true;
+        if(knightCheck(x - 1, y - 2))
+            return true;
+
+        return false;
+    }
+
+//    public boolean lineCheck(int x, int y, int difx)
+//    {
+//
+//    }
+
+    public boolean diagonalCheck(int x, int y, int difx, int dify)
+    {
+        Casilla inicio = tablero.getCasilla(x, y);
+        Casilla destino = null;
+
+        do
+        {
+            x += difx;
+            y += dify;
+            destino = tablero.getCasilla(x, y);
+        }while((x >= 1 && x <= 8) && (y >= 1 && y <= 8) && !destino.hasPiece());
+
+//        Casilla destino = tablero.getCasilla(x, y);
+        double slope = Math.pow(Vector2d.calculateSlope(inicio.getxBoard(), inicio.getyBoard(), destino.getxBoard(), destino.getyBoard()), 2);
+
+        Pieza p = tablero.lookForPiece(inicio, destino);
+
+        if(p == null)
+            return false;
+
+        if(!(p instanceof Bishop) && !(p instanceof Queen))
+            return false;
+        else if(!(p instanceof Torre) && !(p instanceof Queen))
+            return false;
+
+
+        return true;
+    }
+
+    public boolean knightCheck(int x, int y)
+    {
+
+        if(x > 8 || x < 1)
+            return false;
+
+        if(y > 8 || y < 1)
+            return false;
+
+        if(tablero.getCasilla(x, y).hasPiece()
+                && tablero.getCasilla(x, y).getPiece() instanceof Knight
+                && !tablero.getCasilla(x, y).getPiece().getColor().equals(this.color))
+        {
+
+            return true;
+
         }
 
         return false;

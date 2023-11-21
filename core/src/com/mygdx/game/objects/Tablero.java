@@ -35,34 +35,34 @@ public class Tablero
     public void setPieces(Color color, Stage stage)
     {
         Pieza[] piezas = new Pieza[16];
-        int posicion = color == Color.WHITE ? 2 : 7;
-        int posicion2 = color == Color.WHITE ? 1 : 8;
+        int segundaFila = color == Color.WHITE ? 1 : 6;
+        int primeraFila = color == Color.WHITE ? 0 : 7;
 
         for(int i = 0; i < 8; i++)
         {
-            piezas[i] = new Peon(color, tablero[i][posicion - 1], stage);
-            agregarPieza(piezas[i], i + 1, posicion);
+            piezas[i] = new Peon(color, tablero[i][segundaFila], stage);
+            agregarPieza(piezas[i], i, segundaFila);
         }
 
-        piezas[8] = new Torre(color, tablero[0][posicion2 - 1], stage);
-        piezas[9] = new Torre(color, tablero[7][posicion2 - 1], stage);
-        agregarPieza(piezas[8], 1, posicion2);
-        agregarPieza(piezas[9], 8, posicion2);
+        piezas[8] = new Torre(color, tablero[0][primeraFila], stage);
+        piezas[9] = new Torre(color, tablero[7][primeraFila], stage);
+        agregarPieza(piezas[8], 0, primeraFila);
+        agregarPieza(piezas[9], 7, primeraFila);
 
-        piezas[10] = new Knight(color, tablero[1][posicion2 - 1], stage);
-        piezas[11] = new Knight(color, tablero[6][posicion2 - 1], stage);
-        agregarPieza(piezas[10], 2, posicion2);
-        agregarPieza(piezas[11], 7, posicion2);
+        piezas[10] = new Knight(color, tablero[1][primeraFila], stage);
+        piezas[11] = new Knight(color, tablero[6][primeraFila], stage);
+        agregarPieza(piezas[10], 1, primeraFila);
+        agregarPieza(piezas[11], 6, primeraFila);
 
-        piezas[12] = new Bishop(color, tablero[2][posicion2 - 1], stage);
-        piezas[13] = new Bishop(color, tablero[5][posicion2 - 1], stage);
-        agregarPieza(piezas[12], 3, posicion2);
-        agregarPieza(piezas[13], 6, posicion2);
+        piezas[12] = new Bishop(color, tablero[2][primeraFila], stage);
+        piezas[13] = new Bishop(color, tablero[5][primeraFila], stage);
+        agregarPieza(piezas[12], 2, primeraFila);
+        agregarPieza(piezas[13], 5, primeraFila);
 
-        piezas[14] = new Queen(color, tablero[4][posicion2 - 1], stage);
-        piezas[15] = new King(color, tablero[3][posicion2 - 1], stage);
-        agregarPieza(piezas[14], 5, posicion2);
-        agregarPieza(piezas[15], 4, posicion2);
+        piezas[14] = new Queen(color, tablero[3][primeraFila], stage);
+        piezas[15] = new King(color, tablero[4][primeraFila], stage);
+        agregarPieza(piezas[14], 3, primeraFila);
+        agregarPieza(piezas[15], 4, primeraFila);
 
 
     }
@@ -76,6 +76,15 @@ public class Tablero
     }
 
     public Casilla getCasilla(int x, int y) {
+        if(x == 0)
+            x = 1;
+        if(x == 9)
+            x = 8;
+        if(y == 0)
+            y = 1;
+        if(y == 9)
+            y = 8;
+
         return this.tablero[x - 1][y - 1];
     }
 
@@ -86,7 +95,7 @@ public class Tablero
 
     public void agregarPieza(Pieza pieza, int boardX, int boardY)
     {
-        tablero[boardX - 1][boardY - 1].setPiece(pieza);
+        tablero[boardX][boardY].setPiece(pieza);
     }
 
     public Vector2d[] getBordes()
@@ -133,7 +142,7 @@ public class Tablero
 
     public static int coordsY(int y)
     {
-        return (int) ((y - 31) / 50) + 1;
+        return (int) (8 - (y - 31) / 50);
     }
 
     public static char translateBoardCoordsX(int x)
@@ -155,16 +164,14 @@ public class Tablero
         int x = inicio.getxBoard();
         int y = inicio.getyBoard();
 
-        if(inicio.getPiece() instanceof Knight)
-            return true;
-
-
         if(destino.hasPiece() && destino.getPiece().getColor().equals(inicio.getPiece().getColor()))
         {
             System.out.println(destino.getPiece().getColor());
             return false;
         }
 
+        if(inicio.getPiece() instanceof Knight || !(destino.getPiece() instanceof King))
+            return true;
         int diferenciaX = 0;
         int diferenciaY = 0;
 
@@ -197,4 +204,59 @@ public class Tablero
 
         return true;
     }
+
+
+    public Pieza lookForPiece(Casilla inicio, Casilla destino)
+    {
+
+        double slope = Vector2d.calculateSlope(inicio.getxBoard(), inicio.getyBoard(), destino.getxBoard(), destino.getyBoard());
+        int x = inicio.getxBoard();
+        int y = inicio.getyBoard();
+
+//        if(inicio.getPiece() instanceof Knight)
+//            return true;
+
+        int diferenciaX = 0;
+        int diferenciaY = 0;
+
+        if(inicio.getyBoard() == destino.getyBoard())
+        {
+            diferenciaX = inicio.getxBoard() < destino.getxBoard() ? 1 : -1;
+        }
+        else if(inicio.getxBoard() == destino.getxBoard())
+        {
+            diferenciaY = inicio.getyBoard() < destino.getyBoard() ? 1 : -1;
+        }
+        else if(slope == 1 || slope == -1)
+        {
+            diferenciaX = inicio.getxBoard() < destino.getxBoard() ? 1 : -1;
+            diferenciaY = inicio.getyBoard() > destino.getyBoard() ? -1 : 1;
+        }
+
+
+        while(x != destino.getxBoard() - diferenciaX|| y != destino.getyBoard() - diferenciaY)
+        {
+            x += diferenciaX;
+            y += diferenciaY;
+            System.out.println("Casilla " + (x) + " " + (y));
+            if(tablero[x - 1][y - 1].hasPiece())
+            {
+                if(tablero[x - 1][y - 1].getPiece().getColor().equals(inicio.getPiece().getColor()))
+                {
+                    return null;
+                }
+
+                System.out.println("Hay una pieza en " + (x) + " " + (y));
+                return tablero[x - 1][y - 1].getPiece();
+            }
+        }
+
+        if(destino.hasPiece() && !destino.getPiece().getColor().equals(inicio.getPiece().getColor()))
+        {
+            return destino.getPiece();
+        }
+
+        return null;
+    }
+
 }

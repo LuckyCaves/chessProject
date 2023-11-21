@@ -2,9 +2,12 @@ package com.mygdx.game.input;
 
 import com.badlogic.gdx.InputAdapter;
 import com.mygdx.game.objects.Casilla;
+import com.mygdx.game.objects.Player;
 import com.mygdx.game.objects.Tablero;
 import com.mygdx.game.objects.Vector2d;
 import com.mygdx.game.processor.GameProcessor;
+
+import java.sql.SQLOutput;
 
 public class MyInputAdapter extends InputAdapter
 {
@@ -27,6 +30,8 @@ public class MyInputAdapter extends InputAdapter
 
         clickedTile = tablero.getCasilla(Tablero.coordsX(screenX), Tablero.coordsY(screenY));
 
+        System.out.println(Tablero.coordsX(screenX) + " " + Tablero.coordsY(screenY));
+
         if(!gameProcessor.movePiece(clickedTile))
             gameProcessor.selectPiece(clickedTile);
 
@@ -38,7 +43,7 @@ public class MyInputAdapter extends InputAdapter
         if(!Vector2d.isInBounds(tablero.getBordes(), screenX, screenY))
             return false;
 
-        clickedTile = tablero.getCasilla(Tablero.coordsX(screenX), Tablero.coordsY(screenY));
+        clickedTile = tablero.getCasilla( Tablero.coordsX(screenX), Tablero.coordsY(screenY));
         gameProcessor.grabPiece(clickedTile);
 
         return false;

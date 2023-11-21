@@ -17,7 +17,7 @@ public class Peon extends Pieza
         String imagePath = color == Color.WHITE ? "WhitePawn.png" : "BlackPawn.png";
 
         sprite = new Sprite(new Texture(imagePath));
-        sprite.setPosition(casilla.getxBoard() * 50, (9 - casilla.getyBoard()) * 50 );
+        sprite.setPosition(casilla.getxBoard() * 50, (casilla.getyBoard()) * 50 );
         sprite.setSize(super.SIZE, super.SIZE);
 
         update(sprite.getX(), sprite.getY());
@@ -34,9 +34,9 @@ public class Peon extends Pieza
     }
 
     @Override
-    public boolean movePiece(Casilla c)
+    public boolean movePiece(Casilla c, boolean notCheck)
     {
-        if(super.movePiece(c))
+        if(super.movePiece(c, notCheck))
         {
             update(x * SIZE, y * SIZE);
             return true;
@@ -50,6 +50,7 @@ public class Peon extends Pieza
     {
         int moveDirection = color == Color.WHITE ? 1 : -1;
         double distancia = Vector2d.distance(casilla.getxBoard(), casilla.getyBoard(), c.getxBoard(), c.getyBoard());
+        double slope = Math.pow(Vector2d.calculateSlope(c.getxBoard(), c.getyBoard(), casilla.getxBoard(), casilla.getyBoard()), 2);
 
         System.out.println("La distancia entre dos puntos es " + distancia);
 
@@ -65,6 +66,12 @@ public class Peon extends Pieza
         }
 
         if(distancia == 1 && c.getxBoard() == casilla.getxBoard())
+        {
+            firstMove = false;
+            return true;
+        }
+
+        if(slope == 1 && distancia < 2 && c.hasPiece())
         {
             firstMove = false;
             return true;

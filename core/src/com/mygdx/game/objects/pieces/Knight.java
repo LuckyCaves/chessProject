@@ -16,7 +16,7 @@ public class Knight extends Pieza
         String imagePath = color == Color.WHITE ? "WhiteKnight.png" : "BlackKnight.png";
 
         sprite = new Sprite(new Texture(imagePath));
-        sprite.setPosition(casilla.getxBoard() * 50, (9 - casilla.getyBoard()) * 50 );
+        sprite.setPosition(casilla.getxBoard() * 50, (casilla.getyBoard()) * 50 );
         sprite.setSize(super.SIZE, super.SIZE);
 
         stage.addActor(this);
@@ -33,14 +33,13 @@ public class Knight extends Pieza
     }
 
     @Override
-    public boolean movePiece(Casilla c)
+    public boolean movePiece(Casilla c, boolean notCheck)
     {
-        if(super.movePiece(c))
+        if(super.movePiece(c, notCheck))
         {
             update(x * SIZE, y * SIZE);
             return true;
         }
-//        TODO descomentar update
 
         return false;
 

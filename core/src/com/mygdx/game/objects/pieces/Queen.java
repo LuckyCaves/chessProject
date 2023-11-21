@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.mygdx.game.objects.Casilla;
-import com.mygdx.game.objects.Tablero;
 import com.mygdx.game.objects.Vector2d;
 
 public class Queen extends Pieza
@@ -16,7 +15,7 @@ public class Queen extends Pieza
         String imagePath = color == Color.WHITE ? "WhiteQueen.png" : "BlackQueen.png";
 
         sprite = new Sprite(new Texture(imagePath));
-        sprite.setPosition(casilla.getxBoard() * 50, (9 - casilla.getyBoard()) * 50 );
+        sprite.setPosition(casilla.getxBoard() * 50, (casilla.getyBoard()) * 50 );
         sprite.setSize(super.SIZE, super.SIZE);
 
         stage.addActor(this);
@@ -33,9 +32,9 @@ public class Queen extends Pieza
     }
 
     @Override
-    public boolean movePiece(Casilla c)
+    public boolean movePiece(Casilla c, boolean notCheck)
     {
-        if(super.movePiece(c))
+        if(super.movePiece(c, notCheck))
         {
             update(x * SIZE, y * SIZE);
             return true;
@@ -49,7 +48,6 @@ public class Queen extends Pieza
     {
 
         double slope = Math.pow(Vector2d.calculateSlope(c.getxBoard(), c.getyBoard(), casilla.getxBoard(), casilla.getyBoard()), 2);
-
 
         if(c.getxBoard() == casilla.getxBoard() || c.getyBoard() == casilla.getyBoard())
         {

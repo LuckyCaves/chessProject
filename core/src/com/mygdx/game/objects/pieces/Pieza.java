@@ -18,18 +18,25 @@ public abstract class Pieza extends Actor
     public final int SIZE = 50;
     protected static Tablero tablero;
 
-    public boolean movePiece(Casilla c)
+    public Pieza()
     {
+        tablero = Tablero.getInstance();
+        System.out.println("ejecutado");
+    }
+
+    public boolean movePiece(Casilla c, boolean notCheck)
+    {
+
+
         System.out.println("La pieza esta en " + casilla.getxBoard() + " " + casilla.getyBoard());
 
-        Tablero tablero = Tablero.getInstance();
-        if(!isValidMove(c) || !tablero.isPathEmpty(casilla, c))
+        if(!notCheck && (!isValidMove(c) || !tablero.isPathEmpty(casilla, c)))
         {
             System.out.println("Movimiento ilegal");
             return false;
         }
 
-        y = 9 - c.getyBoard();
+        y = c.getyBoard();
         x = c.getxBoard();
         casilla = c;
         System.out.println("La pieza pasa a " + casilla.getxBoard()+ " " + casilla.getyBoard());
@@ -40,16 +47,18 @@ public abstract class Pieza extends Actor
 
     public void deletePiece()
     {
-        sprite = null;
         this.remove();
-        casilla = null;
-        tablero = null;
     }
 
     public void draw(Batch batch, float parentAlpha)
     {
         super.draw(batch, parentAlpha);
         sprite.draw(batch);
+    }
+
+    public Casilla getCasilla()
+    {
+        return this.casilla;
     }
 
     public Color getColor()
