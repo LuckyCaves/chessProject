@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.mygdx.game.objects.Casilla;
 import com.mygdx.game.objects.Player;
 import com.mygdx.game.objects.Tablero;
+import com.mygdx.game.objects.pieces.King;
 import com.mygdx.game.objects.pieces.Pieza;
 
 public class GameProcessor

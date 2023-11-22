@@ -164,6 +164,13 @@ public class Tablero
         int x = inicio.getxBoard();
         int y = inicio.getyBoard();
 
+//        if(destino.hasPiece() && destino.getPiece() instanceof King)
+//        {
+//            King p = (King) destino.getPiece();;
+//            if(p.getCastles())
+//                return true;
+//        }
+
         if(destino.hasPiece() && destino.getPiece().getColor().equals(inicio.getPiece().getColor()))
         {
             System.out.println(destino.getPiece().getColor());

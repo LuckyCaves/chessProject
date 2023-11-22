@@ -11,6 +11,9 @@ public class King extends Pieza
 {
 
     private boolean firstMove = true;
+    private boolean castles = false;
+    private Casilla c = null;
+
 
     public King(Color color, Casilla casilla, Stage stage)
     {
@@ -56,8 +59,13 @@ public class King extends Pieza
 
         if(firstMove && ((distanciaX == 2 && distanciaY == 0) || (c.hasPiece() && c.getPiece() instanceof Torre)))
         {
-            castle(c, (int) distanciaX);
-            firstMove = false;
+            this.c = casilla;
+//            if(this.getCasilla().getxBoard() > c.getxBoard())
+//                c.setxBoard(3);
+//            else
+//                c.setxBoard(7);
+
+            castles = true;
             return true;
         }
 
@@ -80,15 +88,16 @@ public class King extends Pieza
         return false;
     }
 
-    public boolean castle(Casilla c, int distanciaX)
+    public boolean castle()
     {
 
+        double distanciaX = Vector2d.distance(casilla.getxBoard(), casilla.getyBoard(), c.getxBoard(), casilla.getyBoard());
         Pieza p = null;
         Casilla c1 = null;
 
         if(distanciaX == 2)
         {
-            if(this.getCasilla().getxBoard() < c.getxBoard())
+            if(this.getCasilla().getxBoard() > c.getxBoard())
             {
                 p = tablero.getCasilla(8, this.getCasilla().getyBoard()).getPiece();
             }
@@ -97,24 +106,18 @@ public class King extends Pieza
                 p = tablero.getCasilla(1, this.getCasilla().getyBoard()).getPiece();
             }
         }
-        else if(c.getPiece() instanceof Torre)
-        {
-            p = c.getPiece();
-
-        }
 
         if(p == null)
             return false;
 
-        Casilla cPieza = p.getCasilla();
-
         if(p.getCasilla().getxBoard() > this.getCasilla().getxBoard())
         {
             c1 = tablero.getCasilla(p.getCasilla().getxBoard() - 2, p.getCasilla().getyBoard());
+
         }
         else if(p.getCasilla().getxBoard() < this.getCasilla().getxBoard())
         {
-            c1 = tablero.getCasilla(p.getCasilla().getxBoard() + 2, p.getCasilla().getyBoard());
+            c1 = tablero.getCasilla(p.getCasilla().getxBoard() + 3, p.getCasilla().getyBoard());
         }
 
         if(c1 == null)
@@ -123,6 +126,9 @@ public class King extends Pieza
         p.movePiece(c1, true);
         c1.setPiece(p);
         c.removePiece();
+
+        castles = false;
+        firstMove = false;
 
         return true;
     }
@@ -170,6 +176,9 @@ public class King extends Pieza
         if(knightCheck(x - 1, y - 2))
             return true;
 
+        if(castles)
+            castle();
+
         return false;
     }
     public boolean diagonalCheck(int x, int y, int difx, int dify)
@@ -183,9 +192,6 @@ public class King extends Pieza
             y += dify;
             destino = tablero.getCasilla(x, y);
         }while((x >= 1 && x <= 8) && (y >= 1 && y <= 8) && !destino.hasPiece());
-
-//        Casilla destino = tablero.getCasilla(x, y);
-        double slope = Math.pow(Vector2d.calculateSlope(inicio.getxBoard(), inicio.getyBoard(), destino.getxBoard(), destino.getyBoard()), 2);
 
         Pieza p = tablero.lookForPiece(inicio, destino);
 
@@ -222,10 +228,32 @@ public class King extends Pieza
         return false;
     }
 
+    public Casilla castleTile(Casilla c)
+    {
+
+        if(this.getCasilla().getxBoard() > c.getxBoard())
+        {
+            c = tablero.getCasilla(this.getCasilla().getxBoard() - 2, this.getCasilla().getyBoard());
+
+        }
+        else
+        {
+            c = tablero.getCasilla(this.getCasilla().getxBoard() + 2, this.getCasilla().getyBoard());
+        }
+
+        return c;
+
+    }
+
     public void update(float x, float y)
     {
         sprite.setPosition(x, y);
         setBounds(sprite.getX(), sprite.getY(), sprite.getWidth(), sprite.getHeight());
+    }
+
+    public boolean getCastles()
+    {
+        return this.castles;
     }
 
 }
