@@ -164,13 +164,6 @@ public class Tablero
         int x = inicio.getxBoard();
         int y = inicio.getyBoard();
 
-//        if(destino.hasPiece() && destino.getPiece() instanceof King)
-//        {
-//            King p = (King) destino.getPiece();;
-//            if(p.getCastles())
-//                return true;
-//        }
-
         if(destino.hasPiece() && destino.getPiece().getColor().equals(inicio.getPiece().getColor()))
         {
             System.out.println(destino.getPiece().getColor());
@@ -219,9 +212,6 @@ public class Tablero
         double slope = Vector2d.calculateSlope(inicio.getxBoard(), inicio.getyBoard(), destino.getxBoard(), destino.getyBoard());
         int x = inicio.getxBoard();
         int y = inicio.getyBoard();
-
-//        if(inicio.getPiece() instanceof Knight)
-//            return true;
 
         int diferenciaX = 0;
         int diferenciaY = 0;
