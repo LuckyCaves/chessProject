@@ -19,7 +19,7 @@ public class King extends Pieza
     {
 //        super();
         String imagePath = color == Color.WHITE ? "WhiteKing.png" : "BlackKing.png";
-
+        nombre = "King";
         sprite = new Sprite(new Texture(imagePath));
         sprite.setPosition(casilla.getxBoard() * 50, (casilla.getyBoard()) * 50 );
         sprite.setSize(super.SIZE, super.SIZE);

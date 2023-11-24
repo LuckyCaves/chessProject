@@ -14,7 +14,7 @@ public class Knight extends Pieza
     {
 
         String imagePath = color == Color.WHITE ? "WhiteKnight.png" : "BlackKnight.png";
-
+        nombre = "Night";
         sprite = new Sprite(new Texture(imagePath));
         sprite.setPosition(casilla.getxBoard() * 50, (casilla.getyBoard()) * 50 );
         sprite.setSize(super.SIZE, super.SIZE);

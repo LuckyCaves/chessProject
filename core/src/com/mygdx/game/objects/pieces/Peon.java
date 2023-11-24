@@ -15,7 +15,7 @@ public class Peon extends Pieza
     public Peon(Color color, Casilla casilla, Stage stage)
     {
         String imagePath = color == Color.WHITE ? "WhitePawn.png" : "BlackPawn.png";
-
+        nombre = "Pawn";
         sprite = new Sprite(new Texture(imagePath));
         sprite.setPosition(casilla.getxBoard() * 50, (casilla.getyBoard()) * 50 );
         sprite.setSize(super.SIZE, super.SIZE);
@@ -29,6 +29,7 @@ public class Peon extends Pieza
 
     public Peon(Color color, Casilla casilla)
     {
+        nombre = "Pawn";
         super.color = color;
         super.casilla = casilla;
     }

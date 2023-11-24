@@ -147,7 +147,7 @@ public class Tablero
 
     public static char translateBoardCoordsX(int x)
     {
-        return (char) (x + 65);
+        return (char) (x + 97);
     }
 
     public static int translateBoardCoordsY(int y)

@@ -13,7 +13,7 @@ public class Queen extends Pieza
     public Queen(Color color, Casilla casilla, Stage stage)
     {
         String imagePath = color == Color.WHITE ? "WhiteQueen.png" : "BlackQueen.png";
-
+        nombre = "Queen";
         sprite = new Sprite(new Texture(imagePath));
         sprite.setPosition(casilla.getxBoard() * 50, (casilla.getyBoard()) * 50 );
         sprite.setSize(super.SIZE, super.SIZE);

@@ -11,6 +11,7 @@ public abstract class Pieza extends Actor
 {
 
     protected Casilla casilla;
+    String nombre;
     protected int x;
     protected int y;
     protected Sprite sprite;
@@ -66,5 +67,9 @@ public abstract class Pieza extends Actor
         return this.color;
     }
 
+    public String getNombre()
+    {
+        return this.nombre;
+    }
 
 }
