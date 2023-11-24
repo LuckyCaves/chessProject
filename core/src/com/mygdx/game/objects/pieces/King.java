@@ -60,10 +60,6 @@ public class King extends Pieza
         if(firstMove && ((distanciaX == 2 && distanciaY == 0) || (c.hasPiece() && c.getPiece() instanceof Torre)))
         {
             this.c = casilla;
-//            if(this.getCasilla().getxBoard() > c.getxBoard())
-//                c.setxBoard(3);
-//            else
-//                c.setxBoard(7);
 
             castles = true;
             return true;
@@ -186,6 +182,7 @@ public class King extends Pieza
         Casilla inicio = tablero.getCasilla(x, y);
         Casilla destino = null;
 
+
         do
         {
             x += difx;
@@ -198,9 +195,12 @@ public class King extends Pieza
         if(p == null)
             return false;
 
+        double slope = Math.pow(Vector2d.calculateSlope(inicio.getxBoard(), inicio.getyBoard(), destino.getxBoard(), destino.getyBoard()), 2);
+
+
         if(!(p instanceof Bishop) && !(p instanceof Queen))
             return false;
-        else if(!(p instanceof Torre) && !(p instanceof Queen))
+        else if(!(p instanceof Torre) && !(p instanceof Queen) && slope != 1)
             return false;
 
 
