@@ -14,10 +14,15 @@ public class PGN
 
 
     int movimiento = 0;
+    Player player1;
+    Player player2;
     File file;
 
-    public PGN(String fileName)
+    public PGN(String fileName, Player player1, Player player2)
     {
+
+        this.player1 = player1;
+        this.player2 = player2;
 
         FileWriter fileWriter = null;
 
@@ -65,7 +70,7 @@ public class PGN
 
     }
 
-    public void guardarJugada(Casilla casilla, Pieza pieza) {
+    public void guardarJugada(Pieza pieza) {
         FileWriter fileWriter = crearCursor(file.getPath(), true);
 
         if(pieza.getColor() == Color.WHITE)
@@ -82,23 +87,33 @@ public class PGN
 
         }
 
-        char x = Tablero.translateBoardCoordsX(casilla.getxBoard() - 1);
-        int  y = casilla.getyBoard();
 
-        if(pieza.getNombre().equals("Pawn")) {
+        try {
+            fileWriter.write(pieza.getMoveDescription());
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+
+        Player play = null;
+
+        if(pieza.getColor() == Color.WHITE)
+            play = player2;
+        else
+            play = player1;
+
+        if(play.getKing().isChecked())
+        {
             try {
-                fileWriter.write(x  + "" + y + " ");
+                fileWriter.write("+");
             } catch (IOException e) {
                 System.out.println(e.getMessage());
             }
         }
-        else
-        {
-            try {
-                fileWriter.write(pieza.getNombre().substring(0,1) + x  + "" + y + " ");
-            } catch (IOException e) {
-                System.out.println(e.getMessage());
-            }
+
+        try {
+            fileWriter.write(" ");
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
         }
 
         cerrarCursor(fileWriter);

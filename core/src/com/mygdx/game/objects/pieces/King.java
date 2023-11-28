@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.mygdx.game.objects.Casilla;
+import com.mygdx.game.objects.Tablero;
 import com.mygdx.game.objects.Vector2d;
 
 public class King extends Pieza
@@ -84,6 +85,29 @@ public class King extends Pieza
         return false;
     }
 
+    @Override
+    public void writeMove(Casilla inicio, Casilla destino, boolean eatedPiece)
+    {
+
+        char xInicio = Tablero.translateBoardCoordsX(inicio.getxBoard());
+        int yInicio = inicio.getyBoard();
+        char xDestino = Tablero.translateBoardCoordsX(destino.getxBoard());
+        int yDestino = destino.getyBoard();
+
+        if(firstMove && castles)
+        {
+            if(inicio.getxBoard() > destino.getxBoard())
+                this.moveDescription = "O-O-O";
+            else
+                this.moveDescription = "O-O";
+        }
+        else if(eatedPiece)
+            this.moveDescription = this.nombre.substring(0,1) + "x" + xDestino + yDestino;
+        else
+            this.moveDescription = this.nombre.substring(0,1) + xDestino + String.valueOf(yDestino);
+
+    }
+
     public boolean castle()
     {
 
@@ -119,12 +143,14 @@ public class King extends Pieza
         if(c1 == null)
             return false;
 
+        Casilla c2 = p.getCasilla();
+
         p.movePiece(c1, true);
         c1.setPiece(p);
-        c.removePiece();
+        c2.removePiece();
 
-        castles = false;
         firstMove = false;
+        castles = false;
 
         return true;
     }
@@ -198,7 +224,7 @@ public class King extends Pieza
         double slope = Math.pow(Vector2d.calculateSlope(inicio.getxBoard(), inicio.getyBoard(), destino.getxBoard(), destino.getyBoard()), 2);
 
 
-        if(!(p instanceof Bishop) && !(p instanceof Queen))
+        if(!(p instanceof Bishop) && !(p instanceof Queen) && slope == 1)
             return false;
         else if(!(p instanceof Torre) && !(p instanceof Queen) && slope != 1)
             return false;

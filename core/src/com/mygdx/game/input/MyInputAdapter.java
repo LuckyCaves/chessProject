@@ -2,6 +2,7 @@ package com.mygdx.game.input;
 
 import com.badlogic.gdx.InputAdapter;
 import com.mygdx.game.objects.Casilla;
+import com.badlogic.gdx.scenes.scene2d.*;
 import com.mygdx.game.objects.Player;
 import com.mygdx.game.objects.Tablero;
 import com.mygdx.game.objects.Vector2d;
@@ -16,10 +17,10 @@ public class MyInputAdapter extends InputAdapter
     private Tablero tablero;
     private Casilla clickedTile;
 
-    public MyInputAdapter(Tablero tablero)
+    public MyInputAdapter(Tablero tablero, Stage stage)
     {
         this.tablero = tablero;
-        gameProcessor = new GameProcessor();
+        gameProcessor = new GameProcessor(stage);
     }
 
     @Override

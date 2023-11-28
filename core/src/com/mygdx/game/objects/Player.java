@@ -34,17 +34,21 @@ public class Player
         size++;
     }
 
-    public Pieza removePiece()
+    public void removePiece(Casilla c)
     {
         if(size == 0)
-            return null;
+            return;
+
+        Pieza aux = piezasComidas[size];
+        if(aux == null || !aux.getCasilla().equals(c))
+            return;
 
         size--;
-        Pieza aux = piezasComidas[size];
+        c.setPiece(aux);
         piezasComidas[size] = null;
         stage.addActor(aux);
 
-        return aux;
+        return;
     }
 
     public boolean equals(Object o)

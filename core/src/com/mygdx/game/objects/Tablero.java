@@ -147,7 +147,7 @@ public class Tablero
 
     public static char translateBoardCoordsX(int x)
     {
-        return (char) (x + 97);
+        return (char) (x + 96);
     }
 
     public static int translateBoardCoordsY(int y)
@@ -170,7 +170,7 @@ public class Tablero
             return false;
         }
 
-        if(inicio.getPiece() instanceof Knight || !(destino.getPiece() instanceof King))
+        if(inicio.getPiece() instanceof Knight /*|| !(destino.getPiece() instanceof King)*/)
             return true;
         int diferenciaX = 0;
         int diferenciaY = 0;

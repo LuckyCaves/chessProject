@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.mygdx.game.objects.Casilla;
+import com.mygdx.game.objects.Tablero;
 
 public class Torre extends Pieza
 {
@@ -57,6 +58,22 @@ public class Torre extends Pieza
         }
 
         return false;
+    }
+
+    @Override
+    public void writeMove(Casilla inicio, Casilla destino, boolean eatedPiece)
+    {
+
+        char xInicio = Tablero.translateBoardCoordsX(inicio.getxBoard());
+        int yInicio = inicio.getyBoard();
+        char xDestino = Tablero.translateBoardCoordsX(destino.getxBoard());
+        int yDestino = destino.getyBoard();
+
+        if(eatedPiece)
+            this.moveDescription = this.nombre.substring(0,1) + "x" + xDestino + yDestino;
+        else
+            this.moveDescription = this.nombre.substring(0,1) + xDestino + String.valueOf(yDestino);
+
     }
 
     public boolean isFirstMove()

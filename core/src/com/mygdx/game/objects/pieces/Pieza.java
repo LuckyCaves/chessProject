@@ -11,6 +11,7 @@ public abstract class Pieza extends Actor
 {
 
     protected Casilla casilla;
+    protected boolean transform = false;
     String nombre;
     protected int x;
     protected int y;
@@ -18,6 +19,7 @@ public abstract class Pieza extends Actor
     protected Color color;
     public final int SIZE = 50;
     protected static Tablero tablero;
+    protected String moveDescription;
 
     public Pieza()
     {
@@ -37,14 +39,33 @@ public abstract class Pieza extends Actor
             return false;
         }
 
+        boolean isEatedPiece = c.hasPiece();
+
+        this.writeMove(casilla, c, isEatedPiece);
         y = c.getyBoard();
         x = c.getxBoard();
         casilla = c;
-        System.out.println("La pieza pasa a " + casilla.getxBoard()+ " " + casilla.getyBoard());
 
         return true;
     }
+
+    public boolean isAble(Casilla c)
+    {
+        if(isValidMove(c) && tablero.isPathEmpty(casilla, c))
+        {
+            return true;
+        }
+
+        return false;
+    }
     public abstract boolean isValidMove(Casilla c);
+
+    public abstract void writeMove(Casilla inicio, Casilla destino, boolean eatedPiece);
+
+    public String getMoveDescription()
+    {
+        return this.moveDescription;
+    }
 
     public void deletePiece()
     {
@@ -72,4 +93,12 @@ public abstract class Pieza extends Actor
         return this.nombre;
     }
 
+    public boolean getTransform()
+    {
+        return transform;
+    }
+
+    public void setTransform(boolean b) {
+        transform = b;
+    }
 }

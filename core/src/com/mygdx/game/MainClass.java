@@ -3,6 +3,7 @@ package com.mygdx.game;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -20,6 +21,7 @@ public class MainClass extends ApplicationAdapter {
 	Stage stage;
 	Batch batch;
 	InputAdapter inputProcessor;
+	InputMultiplexer inputMultiplexer;
 	Player jugadorBlanco;
 	Player jugadorNegro;
 	Player jugadorActual;
@@ -31,8 +33,13 @@ public class MainClass extends ApplicationAdapter {
 		tablero = Tablero.getInstance();
 		tablero.setPieces(Color.BLACK, stage);
 		tablero.setPieces(Color.WHITE, stage);
-		inputProcessor = new MyInputAdapter(tablero);
-		Gdx.input.setInputProcessor(inputProcessor);
+		inputProcessor = new MyInputAdapter(tablero, stage);
+		inputMultiplexer = new InputMultiplexer();
+		inputMultiplexer.addProcessor(inputProcessor);
+		inputMultiplexer.addProcessor(stage);
+		Gdx.input.setInputProcessor(inputMultiplexer);
+//		Peon pieza = new Peon(Color.WHITE, new Casilla(1, 1, true), stage);
+//		pieza.selectPiece(stage);
 
 
 	}

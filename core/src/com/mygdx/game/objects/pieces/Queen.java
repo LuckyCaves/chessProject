@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.mygdx.game.objects.Casilla;
+import com.mygdx.game.objects.Tablero;
 import com.mygdx.game.objects.Vector2d;
 
 public class Queen extends Pieza
@@ -59,6 +60,22 @@ public class Queen extends Pieza
         }
 
         return false;
+    }
+
+    @Override
+    public void writeMove(Casilla inicio, Casilla destino, boolean eatedPiece)
+    {
+
+        char xInicio = Tablero.translateBoardCoordsX(inicio.getxBoard());
+        int yInicio = inicio.getyBoard();
+        char xDestino = Tablero.translateBoardCoordsX(destino.getxBoard());
+        int yDestino = destino.getyBoard();
+
+        if(eatedPiece)
+            this.moveDescription = this.nombre.substring(0,1) + "x" + xDestino + yDestino;
+        else
+            this.moveDescription = this.nombre.substring(0,1) + xDestino + String.valueOf(yDestino);
+
     }
 
     public void update(float x, float y)
