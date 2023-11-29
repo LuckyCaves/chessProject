@@ -61,6 +61,7 @@ public abstract class Pieza extends Actor
     public abstract boolean isValidMove(Casilla c);
 
     public abstract void writeMove(Casilla inicio, Casilla destino, boolean eatedPiece);
+//    public abstract void writeMove(Casilla destino, boolean eatedPiece);
 
     public String getMoveDescription()
     {

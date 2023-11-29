@@ -235,7 +235,7 @@ public class King extends Pieza
             return false;
 
 
-
+        return false;
     }
     public boolean diagonalCheck(int x, int y, int difx, int dify)
     {
