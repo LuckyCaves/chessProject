@@ -38,7 +38,8 @@ public class MyInputAdapter extends InputAdapter
 
         return false;
     }
-    @Override
+
+    /*@Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
 
         if(!Vector2d.isInBounds(tablero.getBordes(), screenX, screenY))
@@ -48,9 +49,9 @@ public class MyInputAdapter extends InputAdapter
         gameProcessor.grabPiece(clickedTile);
 
         return false;
-    }
+    }*/
 
-    @Override
+    /*@Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button)
     {
         if(!Vector2d.isInBounds(tablero.getBordes(), screenX, screenY))
@@ -60,6 +61,6 @@ public class MyInputAdapter extends InputAdapter
         gameProcessor.dropPiece(clickedTile);
 
         return false;
-    }
+    }*/
 
 }

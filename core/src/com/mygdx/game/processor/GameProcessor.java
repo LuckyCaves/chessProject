@@ -53,9 +53,6 @@ public class GameProcessor
     public boolean movePiece(Casilla c)
     {
 
-        if(ultimoPeon != null)
-            ultimoPeon.setTransform(false);
-
         if(!isSelected && !isGrabbed && !transformPiece)
             return false;
 
@@ -82,6 +79,9 @@ public class GameProcessor
             casillaSelected.unSelectTile();
             return false;
         }
+
+        if(ultimoPeon != null)
+            ultimoPeon.setTransform(false);
 
         ultimoPeon = casillaSelected.getPiece() instanceof Peon ? (Peon) casillaSelected.getPiece() : null;
 
@@ -194,9 +194,10 @@ public class GameProcessor
         rookButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                p.setTransform(false);
                 p.setNewPiece("Rook");
-                p.morph("Rook", stage);
                 movePiece(transformTile);
+                p.morph("Rook", stage);
                 removeActors();
             }
         });
@@ -204,6 +205,7 @@ public class GameProcessor
         queenButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                p.setTransform(false);
                 p.setNewPiece("Queen");
                 movePiece(transformTile);
                 p.morph("Queen", stage);
@@ -214,6 +216,7 @@ public class GameProcessor
         bishopButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                p.setTransform(false);
                 p.setNewPiece("Bishop");
                 movePiece(transformTile);
                 p.morph("Bishop", stage);
@@ -224,6 +227,7 @@ public class GameProcessor
         knightButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                p.setTransform(false);
                 p.setNewPiece("Knight");
                 movePiece(transformTile);
                 p.morph("Knight", stage);

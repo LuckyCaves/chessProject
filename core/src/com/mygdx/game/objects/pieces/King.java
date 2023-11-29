@@ -14,6 +14,7 @@ public class King extends Pieza
     private boolean firstMove = true;
     private boolean castles = false;
     private Casilla c = null;
+    private int  pieceChecking = 0;
 
 
     public King(Color color, Casilla casilla, Stage stage)
@@ -157,11 +158,16 @@ public class King extends Pieza
 
     public boolean isChecked()
     {
+        return isChecked(this.casilla);
+    }
+
+    public boolean isChecked(Casilla c)
+    {
 
         System.out.println("Revisamos");
 
-        int x = casilla.getxBoard();
-        int y = casilla.getyBoard();
+        int x = c.getxBoard();
+        int y = c.getyBoard();
 
         if(diagonalCheck(x ,y, 1, 1))
             return true;
@@ -202,6 +208,34 @@ public class King extends Pieza
             castle();
 
         return false;
+    }
+
+    public boolean isCheckMate()
+    {
+
+        int x = this.casilla.getxBoard();
+        int y = this.casilla.getyBoard();
+
+        if(!isChecked(tablero.getCasilla(x + 1, y)))
+            return false;
+        if(!isChecked(tablero.getCasilla(x, y + 1)))
+            return false;
+        if(!isChecked(tablero.getCasilla(x - 1, y)))
+            return false;
+        if(!isChecked(tablero.getCasilla(x, y - 1)))
+            return false;
+
+        if(!isChecked(tablero.getCasilla(x + 1, y + 1)))
+            return false;
+        if(!isChecked(tablero.getCasilla(x - 1, y - 1)))
+            return false;
+        if(!isChecked(tablero.getCasilla(x + 1, y - 1)))
+            return false;
+        if(!isChecked(tablero.getCasilla(x - 1, y + 1)))
+            return false;
+
+
+
     }
     public boolean diagonalCheck(int x, int y, int difx, int dify)
     {

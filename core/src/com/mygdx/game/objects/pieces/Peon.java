@@ -12,6 +12,7 @@ import com.mygdx.game.objects.Vector2d;
 public class Peon extends Pieza
 {
 
+    public static Peon p = null;
     private boolean firstMove = true;
     private String newPiece;
 
@@ -131,6 +132,9 @@ public class Peon extends Pieza
                 break;
         }
         deletePiece();
+        Casilla c = this.casilla;
+        c.removePiece();
+        c.setPiece(p);
     }
 
     public void setNewPiece(String s)
