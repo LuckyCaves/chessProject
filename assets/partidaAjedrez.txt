@@ -1,6 +1,6 @@
 [Event "?"]
-[Site"?"]
-[Date " 2023.11.29"]
+[Site "?"]
+[Date " 2023.11.30"]
 [Round "?"]
 [White "?"]
 [Black "?"]
@@ -8,4 +8,4 @@
 [WhiteELO "?"]
 [BlackELO "?"]
 
-1. e4 e5 2. Qh5 Nf6 3. Bc4 Ng4 
+1. d4 c5 2. e3 Qa5+ 3. c3 f6 4. d5 e5 5. dxe6 

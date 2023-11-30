@@ -12,7 +12,9 @@ import com.mygdx.game.objects.Vector2d;
 public class Peon extends Pieza
 {
 
-    public static Peon p = null;
+    public static int letter;
+    public static boolean enPassa = false;
+
     private boolean firstMove = true;
     private String newPiece;
 
@@ -62,14 +64,19 @@ public class Peon extends Pieza
         double distancia = Vector2d.distance(casilla.getxBoard(), casilla.getyBoard(), c.getxBoard(), c.getyBoard());
         double slope = Math.pow(Vector2d.calculateSlope(c.getxBoard(), c.getyBoard(), casilla.getxBoard(), casilla.getyBoard()), 2);
 
-        System.out.println("La distancia entre dos puntos es " + distancia);
-
         if((c.getyBoard() * moveDirection) < (casilla.getyBoard() * moveDirection))
         {
             return false;
         }
 
         if(firstMove && distancia == 2)
+        {
+            letter = c.getyBoard();
+            firstMove = false;
+            return true;
+        }
+
+        if(slope == 1 && distancia > 1 && distancia < 2 && (c.hasPiece() || enPassant(c)))
         {
             firstMove = false;
             return true;
@@ -81,9 +88,18 @@ public class Peon extends Pieza
             return true;
         }
 
-        if(slope == 1 && distancia > 1 && distancia < 2 && c.hasPiece())
+
+        return false;
+    }
+
+    public boolean enPassant(Casilla c)
+    {
+
+        int mov = this.color.equals(Color.WHITE) ? -1 : 1;
+
+        if(c.getyBoard() + mov == letter)
         {
-            firstMove = false;
+            enPassa = true;
             return true;
         }
 

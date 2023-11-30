@@ -85,6 +85,12 @@ public class GameProcessor
             jugador.addPiece(c.getPiece());
             c.deletePiece();
         }
+        if(Peon.enPassa)
+        {
+            jugador.addPiece(tablero.getCasilla(c.getxBoard(), Peon.letter).getPiece());
+            tablero.getCasilla(c.getxBoard(), Peon.letter).getPiece().deletePiece();
+            Peon.enPassa = false;
+        }
 
         c.setPiece(casillaSelected.getPiece());
         casillaSelected.unSelectTile();
@@ -101,6 +107,9 @@ public class GameProcessor
         }
 
         this.jugador = this.jugador == jugadorBlanco ? jugadorNegro : jugadorBlanco;
+
+        if(!(c.getPiece() instanceof Peon))
+            Peon.letter = 0;
 
         notacion.guardarJugada(c.getPiece());
         cleanCasillaSelected();

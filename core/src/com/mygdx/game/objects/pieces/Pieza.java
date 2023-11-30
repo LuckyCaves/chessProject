@@ -30,16 +30,17 @@ public abstract class Pieza extends Actor
     public boolean movePiece(Casilla c, boolean notCheck)
     {
 
-
-        System.out.println("La pieza esta en " + casilla.getxBoard() + " " + casilla.getyBoard());
-
         if(!notCheck && (!isValidMove(c) || !tablero.isPathEmpty(casilla, c)))
         {
-            System.out.println("Movimiento ilegal");
             return false;
         }
 
-        boolean isEatedPiece = c.hasPiece();
+        boolean isEatedPiece = false;
+
+        if(this instanceof Peon && Peon.enPassa)
+            isEatedPiece = true;
+        else
+            isEatedPiece = c.hasPiece();
 
         this.writeMove(casilla, c, isEatedPiece);
         y = c.getyBoard();

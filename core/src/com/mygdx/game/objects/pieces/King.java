@@ -223,6 +223,9 @@ public class King extends Pieza
 
         for(Casilla c : casillasPosibles)
         {
+            if(c == null)
+                continue;
+
             if(c.hasPiece() && c.getPiece().getColor().equals(this.color))
                 continue;
 
@@ -238,25 +241,36 @@ public class King extends Pieza
 
         Casilla[] casillasPosibles = new Casilla[8];
 
-        casillasPosibles[0] = tablero.getCasilla(x + 1, y);
-        casillasPosibles[1] = tablero.getCasilla(x, y + 1);
-        casillasPosibles[2] = tablero.getCasilla(x - 1, y);
-        casillasPosibles[3] = tablero.getCasilla(x, y - 1);
-        casillasPosibles[4] = tablero.getCasilla(x + 1, y + 1);
-        casillasPosibles[5] = tablero.getCasilla(x + 1, y - 1);
-        casillasPosibles[6] = tablero.getCasilla(x - 1, y + 1);
-        casillasPosibles[7] = tablero.getCasilla(x - 1, y - 1);
+        int x = this.casilla.getxBoard();
+        int y = this.casilla.getyBoard();
+
+        casillasPosibles[0] = casillaPosible( x + 1, y);
+        casillasPosibles[1] = casillaPosible(x, y + 1);
+        casillasPosibles[2] = casillaPosible(x - 1, y);
+        casillasPosibles[3] = casillaPosible(x, y - 1);
+        casillasPosibles[4] = casillaPosible(x + 1, y + 1);
+        casillasPosibles[5] = casillaPosible(x + 1, y - 1);
+        casillasPosibles[6] = casillaPosible(x - 1, y + 1);
+        casillasPosibles[7] = casillaPosible(x - 1, y - 1);
 
 
         return casillasPosibles;
+    }
+
+    private Casilla casillaPosible(int x, int y)
+    {
+        if((x >= 1 && x < 9) && (y >= 1 && y < 9))
+            return tablero.getCasilla(x, y);
+
+        return null;
     }
 
     public boolean pawnCheck(int x, int y)
     {
         int mov = this.color.equals(Color.WHITE) ? 1 : -1;
 
-        int izquierda = x - 1;
-        int derecha = x + 1;
+        int izquierda = this.casilla.getxBoard() - 1;
+        int derecha = this.casilla.getxBoard() + 1;
 
         Casilla peon1 = null;
         Casilla peon2 = null;
@@ -274,8 +288,6 @@ public class King extends Pieza
 
             if(!p.getColor().equals(this.color))
             {
-                if(isCheckMate())
-                    System.out.println("Se acabo el juego");
                 return true;
             }
         }
@@ -286,8 +298,6 @@ public class King extends Pieza
 
             if(!p.getColor().equals(this.color))
             {
-                if(isCheckMate())
-                    System.out.println("Se acabo el juego");
                 return true;
             }
         }
@@ -320,9 +330,6 @@ public class King extends Pieza
         else if(!(p instanceof Torre) && !(p instanceof Queen) && slope != 1)
             return false;
 
-        if(isCheckMate())
-            System.out.println("Se acabo el juego");
-
         return true;
     }
 
@@ -340,8 +347,6 @@ public class King extends Pieza
                 && !tablero.getCasilla(x, y).getPiece().getColor().equals(this.color))
         {
             pieceChecking = tablero.getCasilla(x, y).getPiece();
-            if(isCheckMate())
-                System.out.println("Se acabo el juego");
             return true;
 
         }
