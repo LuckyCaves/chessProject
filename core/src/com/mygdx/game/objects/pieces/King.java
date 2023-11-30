@@ -13,9 +13,8 @@ public class King extends Pieza
 
     private boolean firstMove = true;
     private boolean castles = false;
+    private Pieza pieceChecking = null;
     private Casilla c = null;
-    private int  pieceChecking = 0;
-
 
     public King(Color color, Casilla casilla, Stage stage)
     {
@@ -168,6 +167,7 @@ public class King extends Pieza
 
         int x = c.getxBoard();
         int y = c.getyBoard();
+        boolean b = false;
 
         if(diagonalCheck(x ,y, 1, 1))
             return true;
@@ -204,6 +204,9 @@ public class King extends Pieza
         if(knightCheck(x - 1, y - 2))
             return true;
 
+        if(pawnCheck(x, y))
+            return true;
+
         if(castles)
             castle();
 
@@ -216,24 +219,78 @@ public class King extends Pieza
         int x = this.casilla.getxBoard();
         int y = this.casilla.getyBoard();
 
-        if(!isChecked(tablero.getCasilla(x + 1, y)))
-            return false;
-        if(!isChecked(tablero.getCasilla(x, y + 1)))
-            return false;
-        if(!isChecked(tablero.getCasilla(x - 1, y)))
-            return false;
-        if(!isChecked(tablero.getCasilla(x, y - 1)))
-            return false;
+        Casilla[] casillasPosibles = obtenerMovimientosPosibles();
 
-        if(!isChecked(tablero.getCasilla(x + 1, y + 1)))
-            return false;
-        if(!isChecked(tablero.getCasilla(x - 1, y - 1)))
-            return false;
-        if(!isChecked(tablero.getCasilla(x + 1, y - 1)))
-            return false;
-        if(!isChecked(tablero.getCasilla(x - 1, y + 1)))
-            return false;
+        for(Casilla c : casillasPosibles)
+        {
+            if(c.hasPiece() && c.getPiece().getColor().equals(this.color))
+                continue;
 
+            if(!isChecked(c))
+                return false;
+        }
+
+        return true;
+    }
+
+    public Casilla[] obtenerMovimientosPosibles()
+    {
+
+        Casilla[] casillasPosibles = new Casilla[8];
+
+        casillasPosibles[0] = tablero.getCasilla(x + 1, y);
+        casillasPosibles[1] = tablero.getCasilla(x, y + 1);
+        casillasPosibles[2] = tablero.getCasilla(x - 1, y);
+        casillasPosibles[3] = tablero.getCasilla(x, y - 1);
+        casillasPosibles[4] = tablero.getCasilla(x + 1, y + 1);
+        casillasPosibles[5] = tablero.getCasilla(x + 1, y - 1);
+        casillasPosibles[6] = tablero.getCasilla(x - 1, y + 1);
+        casillasPosibles[7] = tablero.getCasilla(x - 1, y - 1);
+
+
+        return casillasPosibles;
+    }
+
+    public boolean pawnCheck(int x, int y)
+    {
+        int mov = this.color.equals(Color.WHITE) ? 1 : -1;
+
+        int izquierda = x - 1;
+        int derecha = x + 1;
+
+        Casilla peon1 = null;
+        Casilla peon2 = null;
+        Peon p = null;
+
+        if(izquierda >= 0 && izquierda < 8)
+            peon1 = tablero.getCasilla(izquierda, y + mov);
+
+        if(derecha >= 0 && derecha < 8)
+            peon2 = tablero.getCasilla(derecha, y + mov);
+
+        if(peon1 != null && peon1.hasPiece() && peon1.getPiece() instanceof Peon)
+        {
+            p = (Peon) peon1.getPiece();
+
+            if(!p.getColor().equals(this.color))
+            {
+                if(isCheckMate())
+                    System.out.println("Se acabo el juego");
+                return true;
+            }
+        }
+
+        if(peon2 != null && peon2.hasPiece() && peon2.getPiece() instanceof Peon)
+        {
+            p = (Peon) peon2.getPiece();
+
+            if(!p.getColor().equals(this.color))
+            {
+                if(isCheckMate())
+                    System.out.println("Se acabo el juego");
+                return true;
+            }
+        }
 
         return false;
     }
@@ -263,6 +320,8 @@ public class King extends Pieza
         else if(!(p instanceof Torre) && !(p instanceof Queen) && slope != 1)
             return false;
 
+        if(isCheckMate())
+            System.out.println("Se acabo el juego");
 
         return true;
     }
@@ -280,7 +339,9 @@ public class King extends Pieza
                 && tablero.getCasilla(x, y).getPiece() instanceof Knight
                 && !tablero.getCasilla(x, y).getPiece().getColor().equals(this.color))
         {
-
+            pieceChecking = tablero.getCasilla(x, y).getPiece();
+            if(isCheckMate())
+                System.out.println("Se acabo el juego");
             return true;
 
         }
@@ -288,32 +349,10 @@ public class King extends Pieza
         return false;
     }
 
-    public Casilla castleTile(Casilla c)
-    {
-
-        if(this.getCasilla().getxBoard() > c.getxBoard())
-        {
-            c = tablero.getCasilla(this.getCasilla().getxBoard() - 2, this.getCasilla().getyBoard());
-
-        }
-        else
-        {
-            c = tablero.getCasilla(this.getCasilla().getxBoard() + 2, this.getCasilla().getyBoard());
-        }
-
-        return c;
-
-    }
-
     public void update(float x, float y)
     {
         sprite.setPosition(x, y);
         setBounds(sprite.getX(), sprite.getY(), sprite.getWidth(), sprite.getHeight());
-    }
-
-    public boolean getCastles()
-    {
-        return this.castles;
     }
 
 }

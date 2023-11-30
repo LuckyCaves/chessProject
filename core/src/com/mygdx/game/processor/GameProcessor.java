@@ -80,11 +80,6 @@ public class GameProcessor
             return false;
         }
 
-        if(ultimoPeon != null)
-            ultimoPeon.setTransform(false);
-
-        ultimoPeon = casillaSelected.getPiece() instanceof Peon ? (Peon) casillaSelected.getPiece() : null;
-
         if(c.hasPiece())
         {
             jugador.addPiece(c.getPiece());
@@ -195,8 +190,8 @@ public class GameProcessor
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 p.setTransform(false);
-                p.setNewPiece("Rook");
                 movePiece(transformTile);
+                p.setNewPiece("Rook");
                 p.morph("Rook", stage);
                 removeActors();
             }
@@ -205,9 +200,9 @@ public class GameProcessor
         queenButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                movePiece(transformTile);
                 p.setTransform(false);
                 p.setNewPiece("Queen");
-                movePiece(transformTile);
                 p.morph("Queen", stage);
                 removeActors();
             }
@@ -216,9 +211,9 @@ public class GameProcessor
         bishopButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                movePiece(transformTile);
                 p.setTransform(false);
                 p.setNewPiece("Bishop");
-                movePiece(transformTile);
                 p.morph("Bishop", stage);
                 removeActors();
             }
@@ -227,9 +222,9 @@ public class GameProcessor
         knightButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                movePiece(transformTile);
                 p.setTransform(false);
                 p.setNewPiece("Knight");
-                movePiece(transformTile);
                 p.morph("Knight", stage);
                 removeActors();
             }
