@@ -103,21 +103,6 @@ public class Tablero
         return bordes;
     }
 
-    public void update()
-    {
-
-        for(int i = 0; i < 8; i++)
-        {
-            for(int j = 0; j < 8; j++)
-            {
-                System.out.print(tablero[i][j].toString());
-            }
-            System.out.println();
-        }
-        System.out.println("----------------------------------------");
-
-    }
-
     public void draw(ShapeRenderer shape)
     {
         for(int i = 7; i >= 0; i--)
@@ -158,15 +143,12 @@ public class Tablero
     public boolean isPathEmpty(Casilla inicio, Casilla destino)
     {
 
-        System.out.println("Revisar Camino");
         double slope = Vector2d.calculateSlope(inicio.getxBoard(), inicio.getyBoard(), destino.getxBoard(), destino.getyBoard());
-        System.out.println("Pendiente: " + slope);
         int x = inicio.getxBoard();
         int y = inicio.getyBoard();
 
         if(destino.hasPiece() && destino.getPiece().getColor().equals(inicio.getPiece().getColor()))
         {
-            System.out.println(destino.getPiece().getColor());
             return false;
         }
 
@@ -194,10 +176,8 @@ public class Tablero
         {
             x += diferenciaX;
             y += diferenciaY;
-            System.out.println("Casilla " + (x) + " " + (y));
             if(tablero[x - 1][y - 1].hasPiece())
             {
-                System.out.println("Hay una pieza en " + (x) + " " + (y));
                 return false;
             }
         }
@@ -235,15 +215,12 @@ public class Tablero
         {
             x += diferenciaX;
             y += diferenciaY;
-            System.out.println("Casilla " + (x) + " " + (y));
             if(tablero[x - 1][y - 1].hasPiece())
             {
                 if(tablero[x - 1][y - 1].getPiece().getColor().equals(inicio.getPiece().getColor()))
                 {
                     return null;
                 }
-
-                System.out.println("Hay una pieza en " + (x) + " " + (y));
                 return tablero[x - 1][y - 1].getPiece();
             }
         }

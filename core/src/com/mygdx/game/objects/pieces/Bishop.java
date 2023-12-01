@@ -73,14 +73,13 @@ public class Bishop extends Pieza
     {
 
         char xInicio = Tablero.translateBoardCoordsX(inicio.getxBoard());
-        int yInicio = inicio.getyBoard();
         char xDestino = Tablero.translateBoardCoordsX(destino.getxBoard());
         int yDestino = destino.getyBoard();
 
         if(eatedPiece)
-            this.moveDescription = this.nombre.substring(0,1) + "x" + xDestino + yDestino;
+            this.moveDescription = xInicio + this.nombre.substring(0,1) + xInicio + "x" + xDestino + yDestino;
         else
-            this.moveDescription = this.nombre.substring(0,1) + xDestino + String.valueOf(yDestino);
+            this.moveDescription = this.nombre.substring(0,1) +  xInicio + xDestino + String.valueOf(yDestino);
 
     }
 

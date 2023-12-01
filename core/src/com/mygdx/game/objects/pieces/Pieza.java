@@ -24,7 +24,6 @@ public abstract class Pieza extends Actor
     public Pieza()
     {
         tablero = Tablero.getInstance();
-        System.out.println("ejecutado");
     }
 
     public boolean movePiece(Casilla c, boolean notCheck)

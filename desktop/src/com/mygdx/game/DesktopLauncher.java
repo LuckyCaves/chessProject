@@ -12,5 +12,6 @@ public class DesktopLauncher{
 //		config.setInitialBackgroundColor(Color.BLUE);
 		config.setTitle("My GDX Game");
 		new Lwjgl3Application(new MainClass(), config);
+
 	}
 }

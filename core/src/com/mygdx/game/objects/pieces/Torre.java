@@ -70,9 +70,9 @@ public class Torre extends Pieza
         int yDestino = destino.getyBoard();
 
         if(eatedPiece)
-            this.moveDescription = this.nombre.substring(0,1) + "x" + xDestino + yDestino;
+            this.moveDescription = this.nombre.substring(0,1) + xInicio + "x" + xDestino + yDestino;
         else
-            this.moveDescription = this.nombre.substring(0,1) + xDestino + String.valueOf(yDestino);
+            this.moveDescription = this.nombre.substring(0,1) + xInicio + xDestino + String.valueOf(yDestino);
 
     }
 

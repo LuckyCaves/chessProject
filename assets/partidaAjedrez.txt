@@ -8,4 +8,4 @@
 [WhiteELO "?"]
 [BlackELO "?"]
 
-1. d4 c5 2. e3 Qa5+ 3. c3 f6 4. d5 e5 5. dxe6 
+1. e4 e5 

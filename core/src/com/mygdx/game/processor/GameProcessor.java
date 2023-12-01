@@ -14,7 +14,6 @@ import com.mygdx.game.objects.Casilla;
 import com.mygdx.game.objects.PGN;
 import com.mygdx.game.objects.Player;
 import com.mygdx.game.objects.Tablero;
-import com.mygdx.game.objects.pieces.King;
 import com.mygdx.game.objects.pieces.Peon;
 import com.mygdx.game.objects.pieces.Pieza;
 
@@ -121,7 +120,6 @@ public class GameProcessor
 
     public void undoMove(Casilla c)
     {
-        System.out.println("regresamos");
         c.getPiece().movePiece(casillaSelected, true);
         casillaSelected.setPiece(c.getPiece());
         c.removePiece();
@@ -179,10 +177,14 @@ public class GameProcessor
         ImageButton queenButton = new ImageButton(drawQueen);
         ImageButton bishopButton = new ImageButton(drawBishop);
         ImageButton knightButton = new ImageButton(drawKnight);
-        rookButton.setBounds(500, 400, 70, 70);
-        queenButton.setBounds(500, 300, 70, 70);
-        bishopButton.setBounds(500, 200, 70, 70);
-        knightButton.setBounds(500, 100, 70, 70);
+        rookButton.setBounds(450, 300, 100, 100);
+        rookButton.getImage().setFillParent(true);
+        queenButton.setBounds(450, 200, 100, 100);
+        queenButton.getImage().setFillParent(true);
+        bishopButton.setBounds(450, 100, 100, 100);
+        bishopButton.getImage().setFillParent(true);
+        knightButton.setBounds(450, 0, 100, 100);
+        knightButton.getImage().setFillParent(true);
         //create your button
 //        TextButton button = new TextButton("Button1", skin);
 
@@ -198,9 +200,9 @@ public class GameProcessor
         rookButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                p.setTransform(false);
-                movePiece(transformTile);
                 p.setNewPiece("Rook");
+                movePiece(transformTile);
+                p.setTransform(false);
                 p.morph("Rook", stage);
                 removeActors();
             }
@@ -209,9 +211,9 @@ public class GameProcessor
         queenButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                p.setNewPiece("Queen");
                 movePiece(transformTile);
                 p.setTransform(false);
-                p.setNewPiece("Queen");
                 p.morph("Queen", stage);
                 removeActors();
             }
@@ -220,9 +222,9 @@ public class GameProcessor
         bishopButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                p.setNewPiece("Bishop");
                 movePiece(transformTile);
                 p.setTransform(false);
-                p.setNewPiece("Bishop");
                 p.morph("Bishop", stage);
                 removeActors();
             }
@@ -231,9 +233,9 @@ public class GameProcessor
         knightButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                p.setNewPiece("Knight");
                 movePiece(transformTile);
                 p.setTransform(false);
-                p.setNewPiece("Knight");
                 p.morph("Knight", stage);
                 removeActors();
             }

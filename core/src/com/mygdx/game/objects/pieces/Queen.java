@@ -66,13 +66,14 @@ public class Queen extends Pieza
     public void writeMove(Casilla inicio, Casilla destino, boolean eatedPiece)
     {
 
+        char xInicio = Tablero.translateBoardCoordsX(inicio.getxBoard());
         char xDestino = Tablero.translateBoardCoordsX(destino.getxBoard());
         int yDestino = destino.getyBoard();
 
         if(eatedPiece)
-            this.moveDescription = this.nombre.substring(0,1) + "x" + xDestino + yDestino;
+            this.moveDescription = xInicio + this.nombre.charAt(0) + xInicio +  "x" + xDestino + yDestino;
         else
-            this.moveDescription = this.nombre.substring(0,1) + xDestino + String.valueOf(yDestino);
+            this.moveDescription = this.nombre.substring(0,1) + xInicio +  xDestino + String.valueOf(yDestino);
 
     }
 

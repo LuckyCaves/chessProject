@@ -162,9 +162,6 @@ public class King extends Pieza
 
     public boolean isChecked(Casilla c)
     {
-
-        System.out.println("Revisamos");
-
         int x = c.getxBoard();
         int y = c.getyBoard();
         boolean b = false;
